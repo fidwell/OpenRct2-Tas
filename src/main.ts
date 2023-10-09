@@ -18,9 +18,9 @@ const main = (): void => {
       case "six flags magic mountain.sc6":
         actions = SixFlagsMm.Actions;
         break;
-      // case "rock 'n' roll - rock 'n' roll.sc6":
-      //   TtRockNRollRevival.Run();
-      //   break;
+      case "rock 'n' roll - rock 'n' roll.sc6":
+        actions = TtRockNRollRevival.Actions;
+        break;
       default:
         console.log("Scenario not supported: " + scenario.filename);
         break;
