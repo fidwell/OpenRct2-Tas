@@ -1,5 +1,5 @@
 export default class TtDarkAge {
-    static Actions = (): ((data: void) => void)[] => [
+    static Actions: ((data: void) => void)[] = [
         () => context.executeAction("ridesetprice", <RideSetPriceArgs>{
            ride: 3,
            price: 100,

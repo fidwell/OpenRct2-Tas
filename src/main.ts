@@ -13,11 +13,11 @@ const main = (): void => {
   context.subscribe("map.changed", () => {
     switch (scenario.filename.toLocaleLowerCase()) {
       case "dark age - robin hood.sc6":
-        actions = TtDarkAge.Actions();
+        actions = TtDarkAge.Actions;
         break;
-      // case "six flags magic mountain.sc6":
-      //   SixFlagsMm.Run();
-      //   break;
+      case "six flags magic mountain.sc6":
+        actions = SixFlagsMm.Actions;
+        break;
       // case "rock 'n' roll - rock 'n' roll.sc6":
       //   TtRockNRollRevival.Run();
       //   break;
