@@ -11,6 +11,11 @@ const main = (): void => {
   let start: Date;
 
   context.subscribe("map.changed", () => {
+    actions = [];
+
+    if (context.mode !== "normal")
+      return;
+
     switch (scenario.filename.toLocaleLowerCase()) {
       case "dark age - robin hood.sc6":
         actions = TtDarkAge.Actions;
@@ -32,6 +37,9 @@ const main = (): void => {
   });
 
   context.subscribe("interval.tick", () => {
+    if (context.mode !== "normal")
+      return;
+
     if (!scenarioCompleted && scenario.status === "completed") {
       const finish = new Date();
       const ms = finish.getTime() - start.getTime();
