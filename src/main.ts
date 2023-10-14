@@ -3,6 +3,7 @@
 import SixFlagsMm from "./scenarios/real/sixflagsmm";
 import TtDarkAge from "./scenarios/tt/darkage";
 import TtRockNRollRevival from "./scenarios/tt/rocknrollrevival";
+import SchneiderCup from "./scenarios/tt/schneidercup";
 
 const main = (): void => {
   let actions: ((data: void) => void)[] = [];
@@ -20,11 +21,14 @@ const main = (): void => {
       case "dark age - robin hood.sc6":
         actions = TtDarkAge.Actions;
         break;
-      case "six flags magic mountain.sc6":
-        actions = SixFlagsMm.Actions;
+      case "roaring twenties - schneider cup.sc6":
+        actions = new SchneiderCup().Actions;
         break;
       case "rock 'n' roll - rock 'n' roll.sc6":
         actions = TtRockNRollRevival.Actions;
+        break;
+      case "six flags magic mountain.sc6":
+        actions = SixFlagsMm.Actions;
         break;
       default:
         console.log("Scenario not supported: " + scenario.filename);
