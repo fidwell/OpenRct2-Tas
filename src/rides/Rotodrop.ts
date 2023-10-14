@@ -22,9 +22,10 @@ export default class RotoDrop {
       colour1: 0,
       colour2: 0
     }, (result: RideCreateActionResult) => {
-      currentRotoDropId = result.ride;
+      if (result.ride !== undefined)
+        currentRotoDropId = result.ride;
     }));
-    
+
     actions.push(() => context.executeAction("trackplace", <TrackPlaceArgs>{
       x: x * 32,
       y: y * 32,
