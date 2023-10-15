@@ -47,6 +47,7 @@ export class TrackPlacer {
       let right: number = 0;
       let turn: number = 0; // 1 = 90 degrees right, etc.
       switch (trackElemType) {
+        case TrackElemType.Flat: // 0
         case TrackElemType.EndStation:
         case TrackElemType.BeginStation:
         case TrackElemType.MiddleStation:
@@ -54,26 +55,38 @@ export class TrackPlacer {
           forward += 1;
           break;
 
-        case TrackElemType.Up60:
+        case TrackElemType.Up60: // 5
           forward += 1;
           this.z += 8;
           break;
 
-        case TrackElemType.FlatToUp25:
+        case TrackElemType.FlatToUp25: // 6
         case TrackElemType.Up25ToFlat:
           forward += 1;
           this.z += 1;
           break;
 
-        case TrackElemType.Up25ToUp60:
+        case TrackElemType.Up25ToUp60: // 7
           forward += 1;
           this.z += 4;
           break;
 
-        case TrackElemType.RightVerticalLoop:
+        case TrackElemType.LeftQuarterTurn5Tiles: // 16
+          forward += 2;
+          right -= 3;
+          turn -= 1;
+          break;
+
+        case TrackElemType.RightVerticalLoop: // 41
           forward += 2;
           right += 1;
           this.z -= 1;
+          break;
+
+        case TrackElemType.LeftQuarterTurn3Tiles: //42
+          forward += 1;
+          right -= 1;
+          turn -= 1;
           break;
 
         default:

@@ -1,27 +1,25 @@
-import { RideType } from "../enums/RideType";
-import RideUtilities from "./RideUtilities";
-import { TrackElemType } from "../enums/TrackElemType";
-import { RideSetSetting } from "../enums/RideSetSetting";
-import { RideMode } from "../enums/RideMode";
-import { TrackPlacer } from "./TrackPlacer";
 import { RideStatus } from "../enums/RideStatus";
+import { RideType } from "../enums/RideType";
+import { TrackElemType } from "../enums/TrackElemType";
+import RideUtilities from "./RideUtilities";
+import { TrackPlacer } from "./TrackPlacer";
 
-export default class LoopingRollerCoaster {
-  static Identifiers: string[] = ["rct2tt.ride.polchase"];
+export default class AirPoweredVerticalCoaster {
+  static Identifiers: string[] = ["rct2.ride.thcar"];
   private objectIndex: number = -1;
 
   constructor() {
-    this.objectIndex = RideUtilities.GetRideObjectIndex(LoopingRollerCoaster.Identifiers);
+    this.objectIndex = RideUtilities.GetRideObjectIndex(AirPoweredVerticalCoaster.Identifiers);
   }
 
-  BuildShuttleLoop(x: number, y: number, z: number, direction: number): ((data: void) => void)[] {
+  BuildTinyLoop(x: number, y: number, z: number, direction: number): ((data: void) => void)[] {
     let rideId: number = -1;
-    const placer = new TrackPlacer(RideType.LoopingRollerCoaster, x, y, z, direction);
+    const placer = new TrackPlacer(RideType.AirPoweredVerticalCoaster, x, y, z, direction);
 
     return [
       // Create ride
       () => context.executeAction("ridecreate", <RideCreateArgs>{
-        rideType: RideType.LoopingRollerCoaster,
+        rideType: RideType.AirPoweredVerticalCoaster,
         rideObject: this.objectIndex,
         entranceObject: 0, // Probably plain
         colour1: 0,
@@ -33,19 +31,16 @@ export default class LoopingRollerCoaster {
         }
       }),
       placer.BuildPiece(TrackElemType.BeginStation),
-      placer.BuildPiece(TrackElemType.MiddleStation),
-      placer.BuildPiece(TrackElemType.MiddleStation),
       placer.BuildPiece(TrackElemType.EndStation),
-      placer.BuildPiece(TrackElemType.FlatToUp25),
-      placer.BuildPiece(TrackElemType.RightVerticalLoop),
-      placer.BuildPiece(TrackElemType.Down25ToFlat),
-      placer.BuildPiece(TrackElemType.FlatToUp25),
-      placer.BuildPiece(TrackElemType.Up25ToUp60),
-      placer.BuildPiece(TrackElemType.Up60),
-      placer.BuildPiece(TrackElemType.Up60),
-      placer.BuildPiece(TrackElemType.Up60),
+      placer.BuildPiece(TrackElemType.LeftQuarterTurn5Tiles),
+      placer.BuildPiece(TrackElemType.LeftQuarterTurn5Tiles),
+      placer.BuildPiece(TrackElemType.Flat),
+      placer.BuildPiece(TrackElemType.Flat),
+      placer.BuildPiece(TrackElemType.LeftQuarterTurn5Tiles),
+      placer.BuildPiece(TrackElemType.LeftQuarterTurn5Tiles),
       placer.BuildEntrance(),
       placer.BuildExit(),
+      /*
       // Set to powered launch (without passing station)
       () => context.executeAction("ridesetsetting", <RideSetSettingArgs>{
         ride: rideId,
@@ -58,6 +53,7 @@ export default class LoopingRollerCoaster {
         setting: RideSetSetting.Operation,
         value: 18 // (40 mph or 64 km/h) // 10–27 are the only valid numbers
       }),
+      */
       // Test
       () => context.executeAction("ridesetstatus", <RideSetStatusArgs>{
         ride: rideId,

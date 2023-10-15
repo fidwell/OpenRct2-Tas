@@ -23,7 +23,7 @@ const main = (): void => {
         actions = new TtDarkAge().Actions;
         break;
       case "roaring twenties - schneider cup.sc6":
-        actions = new SchneiderCup().Actions;
+        actions = new SchneiderCup(2).Actions;
         break;
       case "rock 'n' roll - rock 'n' roll.sc6":
         actions = new TtRockNRollRevival().Actions;
