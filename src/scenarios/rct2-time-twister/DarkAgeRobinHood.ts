@@ -1,4 +1,4 @@
-export default class TtDarkAge {
+export default class DarkAgeRobinHood {
     Actions: ((data: void) => void)[] = [
         () => context.executeAction("ridesetprice", <RideSetPriceArgs>{
            ride: 3,

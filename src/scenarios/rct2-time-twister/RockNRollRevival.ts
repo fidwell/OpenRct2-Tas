@@ -1,7 +1,7 @@
 import RotoDrop from "../../rides/Rotodrop";
 import ArrayUtilities from "../../utilities/ArrayUtilities";
 
-export default class TtRockNRollRevival {
+export default class RockNRollRevival {
   private rotoDropHeight: number = 35;
 
   Actions: ((data: void) => void)[] = [

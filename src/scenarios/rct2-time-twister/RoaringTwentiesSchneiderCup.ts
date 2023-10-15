@@ -1,7 +1,7 @@
 import AirPoweredVerticalCoaster from "../../rides/AirPoweredVerticalCoaster";
 import LoopingRollerCoaster from "../../rides/LoopingRollerCoaster";
 
-export default class SchneiderCup {
+export default class RoaringTwentiesSchneiderCup {
   constructor(private method: number) {}
 
   private method1: ((data: void) => void)[] = [

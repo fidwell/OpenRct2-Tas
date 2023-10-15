@@ -1,9 +1,9 @@
 /// <reference path="../lib/openrct2.d.ts" />
 
-import SixFlagsMm from "./scenarios/real/sixflagsmm";
-import TtDarkAge from "./scenarios/tt/darkage";
-import TtRockNRollRevival from "./scenarios/tt/rocknrollrevival";
-import SchneiderCup from "./scenarios/tt/schneidercup";
+import SixFlagsMagicMountain from "./scenarios/real-parks/SixFlagsMagicMountain";
+import DarkAgeRobinHood from "./scenarios/rct2-time-twister/DarkAgeRobinHood";
+import RockNRollRevival from "./scenarios/rct2-time-twister/RockNRollRevival";
+import RoaringTwentiesSchneiderCup from "./scenarios/rct2-time-twister/RoaringTwentiesSchneiderCup";
 
 const main = (): void => {
   let actions: ((data: void) => void)[] = [];
@@ -20,16 +20,16 @@ const main = (): void => {
 
     switch (scenario.filename.toLocaleLowerCase()) {
       case "dark age - robin hood.sc6":
-        actions = new TtDarkAge().Actions;
+        actions = new DarkAgeRobinHood().Actions;
         break;
       case "roaring twenties - schneider cup.sc6":
-        actions = new SchneiderCup(2).Actions;
+        actions = new RoaringTwentiesSchneiderCup(2).Actions;
         break;
       case "rock 'n' roll - rock 'n' roll.sc6":
-        actions = new TtRockNRollRevival().Actions;
+        actions = new RockNRollRevival().Actions;
         break;
       case "six flags magic mountain.sc6":
-        actions = new SixFlagsMm().Actions;
+        actions = new SixFlagsMagicMountain().Actions;
         break;
       default:
         console.log("Scenario not supported: " + scenario.filename);

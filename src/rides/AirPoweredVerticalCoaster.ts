@@ -17,7 +17,6 @@ export default class AirPoweredVerticalCoaster {
     const placer = new TrackPlacer(RideType.AirPoweredVerticalCoaster, x, y, z, direction);
 
     return [
-      // Create ride
       () => context.executeAction("ridecreate", <RideCreateArgs>{
         rideType: RideType.AirPoweredVerticalCoaster,
         rideObject: this.objectIndex,
@@ -40,21 +39,6 @@ export default class AirPoweredVerticalCoaster {
       placer.BuildPiece(TrackElemType.LeftQuarterTurn5Tiles),
       placer.BuildEntrance(),
       placer.BuildExit(),
-      /*
-      // Set to powered launch (without passing station)
-      () => context.executeAction("ridesetsetting", <RideSetSettingArgs>{
-        ride: rideId,
-        setting: RideSetSetting.Mode,
-        value: RideMode.PoweredLaunch
-      }),
-      // Set launch speed to 40 mph
-      () => context.executeAction("ridesetsetting", <RideSetSettingArgs>{
-        ride: rideId,
-        setting: RideSetSetting.Operation,
-        value: 18 // (40 mph or 64 km/h) // 10–27 are the only valid numbers
-      }),
-      */
-      // Test
       () => context.executeAction("ridesetstatus", <RideSetStatusArgs>{
         ride: rideId,
         status: RideStatus.Testing
