@@ -5,20 +5,20 @@ import { RideStatus } from "../enums/RideStatus";
 
 export default class RotoDrop {
   static Identifiers: string[] = ["rct2.ride.gdrop1"];
-  static ObjectIndex: number = -1;
+  private objectIndex: number = -1;
 
-  static Init() {
-    RotoDrop.ObjectIndex = RideUtilities.GetRideObjectIndex(RotoDrop.Identifiers);
+  constructor() {
+    this.objectIndex = RideUtilities.GetRideObjectIndex(RotoDrop.Identifiers);
   }
 
-  static Build(x: number, y: number, z: number): ((data: void) => void)[] {
+  Build(x: number, y: number, z: number, height: number): ((data: void) => void)[] {
     const actions = [];
     let baseHeight: number = z;
     let currentRideId: number = 0;
 
     actions.push(() => context.executeAction("ridecreate", <RideCreateArgs>{
       rideType: RideType.RotoDrop,
-      rideObject: RotoDrop.ObjectIndex,
+      rideObject: this.objectIndex,
       entranceObject: 0, // Probably plain
       colour1: 0,
       colour2: 0
@@ -42,7 +42,7 @@ export default class RotoDrop {
       isFromTrackDesign: false
     }));
 
-    for (let i = 0; i < 35; i += 1) {
+    for (let i = 0; i < height; i += 1) {
       actions.push(() => context.executeAction("trackplace", <TrackPlaceArgs>{
         x: x * 32,
         y: y * 32,

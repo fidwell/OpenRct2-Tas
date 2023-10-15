@@ -20,16 +20,16 @@ const main = (): void => {
 
     switch (scenario.filename.toLocaleLowerCase()) {
       case "dark age - robin hood.sc6":
-        actions = TtDarkAge.Actions;
+        actions = new TtDarkAge().Actions;
         break;
       case "roaring twenties - schneider cup.sc6":
         actions = new SchneiderCup().Actions;
         break;
       case "rock 'n' roll - rock 'n' roll.sc6":
-        actions = TtRockNRollRevival.Actions;
+        actions = new TtRockNRollRevival().Actions;
         break;
       case "six flags magic mountain.sc6":
-        actions = SixFlagsMm.Actions;
+        actions = new SixFlagsMm().Actions;
         break;
       default:
         console.log("Scenario not supported: " + scenario.filename);

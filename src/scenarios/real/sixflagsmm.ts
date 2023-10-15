@@ -5,7 +5,7 @@ to see whether you've completed the objective.
 */
 
 export default class SixFlagsMm {
-  static Actions: ((data: void) => void)[] = [
+  Actions: ((data: void) => void)[] = [
     // Sell Goliath
     () => { context.executeAction("ridedemolish", <RideDemolishArgs>{ ride: 2, modifyType: 0 }); },
     // Sell Flashback

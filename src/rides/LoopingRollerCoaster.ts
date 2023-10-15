@@ -8,10 +8,10 @@ import { RideStatus } from "../enums/RideStatus";
 
 export default class LoopingRollerCoaster {
   static Identifiers: string[] = ["rct2tt.ride.ganstrcr"];
-  static ObjectIndex: number = -1;
+  private objectIndex: number = -1;
 
-  Init() {
-    LoopingRollerCoaster.ObjectIndex = RideUtilities.GetRideObjectIndex(LoopingRollerCoaster.Identifiers);
+  constructor() {
+    this.objectIndex = RideUtilities.GetRideObjectIndex(LoopingRollerCoaster.Identifiers);
   }
 
   BuildShuttleLoop(x: number, y: number, z: number, direction: number): ((data: void) => void)[] {
@@ -21,7 +21,7 @@ export default class LoopingRollerCoaster {
 
     actions.push(() => context.executeAction("ridecreate", <RideCreateArgs>{
       rideType: RideType.LoopingRollerCoaster,
-      rideObject: LoopingRollerCoaster.ObjectIndex,
+      rideObject: this.objectIndex,
       entranceObject: 0, // Probably plain
       colour1: 0,
       colour2: 0
