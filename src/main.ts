@@ -9,7 +9,8 @@ const main = (): void => {
   let actions: ((data: void) => void)[] = [];
   let currentAction: number = 0;
   let scenarioCompleted: boolean;
-  let start: Date;
+  let startDate: Date;
+  let startTicks: number;
 
   context.subscribe("map.changed", () => {
     actions = [];
@@ -37,7 +38,8 @@ const main = (): void => {
     
     currentAction = 0;
     scenarioCompleted = false;
-    start = new Date();
+    startDate = new Date();
+    startTicks = date.ticksElapsed;
   });
 
   context.subscribe("interval.tick", () => {
@@ -46,10 +48,11 @@ const main = (): void => {
 
     if (!scenarioCompleted && scenario.status === "completed") {
       const finish = new Date();
-      const ms = finish.getTime() - start.getTime();
+      const ms = finish.getTime() - startDate.getTime();
+      const totalTicks = date.ticksElapsed - startTicks;
       park.postMessage(<ParkMessageDesc>{
         type: "award",
-        text: `Objective completed in ${(ms / 1000).toFixed(3)} seconds, ${date.ticksElapsed} ticks`
+        text: `Objective completed in ${(ms / 1000).toFixed(3)} seconds, ${totalTicks} ticks`
       });
       scenarioCompleted = true;
     }
