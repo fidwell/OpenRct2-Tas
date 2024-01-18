@@ -1,35 +1,36 @@
-/// <reference path="../lib/openrct2.d.ts" />
-
-import SixFlagsMagicMountain from "./scenarios/real-parks/SixFlagsMagicMountain";
+import ScenarioRunner from "./scenarios/ScenarioRunner";
+import HydroHills from "./scenarios/rct1-corkscrew-follies/HydroHills";
 import DarkAgeRobinHood from "./scenarios/rct2-time-twister/DarkAgeRobinHood";
-import RockNRollRevival from "./scenarios/rct2-time-twister/RockNRollRevival";
 import RoaringTwentiesSchneiderCup from "./scenarios/rct2-time-twister/RoaringTwentiesSchneiderCup";
+import RockNRollRevival from "./scenarios/rct2-time-twister/RockNRollRevival";
+import SixFlagsMagicMountain from "./scenarios/real-parks/SixFlagsMagicMountain";
 
 const main = (): void => {
-  let actions: ((data: void) => void)[] = [];
+  let runner: ScenarioRunner;
   let currentAction: number = 0;
   let scenarioCompleted: boolean;
   let startDate: Date;
   let startTicks: number;
 
   context.subscribe("map.changed", () => {
-    actions = [];
-
     if (context.mode !== "normal")
       return;
 
     switch (scenario.filename.toLocaleLowerCase()) {
+      case "sc50.sc4":
+        runner = new HydroHills();
+        break;
       case "dark age - robin hood.sc6":
-        actions = new DarkAgeRobinHood().Actions;
+        runner = new DarkAgeRobinHood();
         break;
       case "roaring twenties - schneider cup.sc6":
-        actions = new RoaringTwentiesSchneiderCup(2).Actions;
+        runner = new RoaringTwentiesSchneiderCup(2);
         break;
       case "rock 'n' roll - rock 'n' roll.sc6":
-        actions = new RockNRollRevival().Actions;
+        runner = new RockNRollRevival();
         break;
       case "six flags magic mountain.sc6":
-        actions = new SixFlagsMagicMountain().Actions;
+        runner = new SixFlagsMagicMountain();
         break;
       default:
         console.log("Scenario not supported: " + scenario.filename);
@@ -46,6 +47,9 @@ const main = (): void => {
     if (context.mode !== "normal")
       return;
 
+    if (runner === undefined || runner === null)
+      return;
+
     if (!scenarioCompleted && scenario.status === "completed") {
       const finish = new Date();
       const ms = finish.getTime() - startDate.getTime();
@@ -55,12 +59,13 @@ const main = (): void => {
         text: `Objective completed in ${(ms / 1000).toFixed(3)} seconds, ${totalTicks} ticks`
       });
       scenarioCompleted = true;
+      runner = new ScenarioRunner([]);
     }
 
-    if (currentAction >= actions.length)
+    if (currentAction >= runner.Actions.length)
       return;
 
-    actions[currentAction]();
+    runner.Actions[currentAction]();
     currentAction += 1;
   });
 };

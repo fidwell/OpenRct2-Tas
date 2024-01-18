@@ -5,10 +5,10 @@ import { RideStatus } from "../enums/RideStatus";
 
 export default class RotoDrop {
   static Identifiers: string[] = ["rct2.ride.gdrop1"];
-  private objectIndex: number = -1;
+  private vehicleObject: number = -1;
 
   constructor() {
-    this.objectIndex = RideUtilities.GetRideObjectIndex(RotoDrop.Identifiers);
+    this.vehicleObject = RideUtilities.GetRideObjectIndex(RotoDrop.Identifiers);
   }
 
   Build(x: number, y: number, z: number, height: number): ((data: void) => void)[] {
@@ -18,7 +18,7 @@ export default class RotoDrop {
 
     actions.push(() => context.executeAction("ridecreate", <RideCreateArgs>{
       rideType: RideType.RotoDrop,
-      rideObject: this.objectIndex,
+      rideObject: this.vehicleObject,
       entranceObject: 0, // Probably plain
       colour1: 0,
       colour2: 0

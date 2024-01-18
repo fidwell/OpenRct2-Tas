@@ -6,10 +6,10 @@ import { TrackPlacer } from "./TrackPlacer";
 
 export default class AirPoweredVerticalCoaster {
   static Identifiers: string[] = ["rct2.ride.thcar"];
-  private objectIndex: number = -1;
+  private vehicleObject: number = -1;
 
   constructor() {
-    this.objectIndex = RideUtilities.GetRideObjectIndex(AirPoweredVerticalCoaster.Identifiers);
+    this.vehicleObject = RideUtilities.GetRideObjectIndex(AirPoweredVerticalCoaster.Identifiers);
   }
 
   BuildTinyLoop(x: number, y: number, z: number, direction: number): ((data: void) => void)[] {
@@ -19,7 +19,7 @@ export default class AirPoweredVerticalCoaster {
     return [
       () => context.executeAction("ridecreate", <RideCreateArgs>{
         rideType: RideType.AirPoweredVerticalCoaster,
-        rideObject: this.objectIndex,
+        rideObject: this.vehicleObject,
         entranceObject: 0, // Probably plain
         colour1: 0,
         colour2: 0
