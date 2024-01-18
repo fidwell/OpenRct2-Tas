@@ -1,4 +1,5 @@
 import ScenarioRunner from "../ScenarioRunner";
+import TileCoord from "../../map/TileCoord";
 import RotoDrop from "../../rides/Rotodrop";
 import ArrayUtilities from "../../utilities/ArrayUtilities";
 
@@ -13,15 +14,15 @@ export default class RockNRollRevival extends ScenarioRunner {
       // Pay off loan
       () => context.executeAction("parksetloan", <ParkSetLoanArgs>{ value: 0 }),
       // Build 9 really tall roto-drops in test mode
-      ...new RotoDrop().Build(61, 41, 28, rotoDropHeight),
-      ...new RotoDrop().Build(64, 37, 28, rotoDropHeight),
-      ...new RotoDrop().Build(69, 38, 28, rotoDropHeight),
-      ...new RotoDrop().Build(78, 44, 32, rotoDropHeight),
-      ...new RotoDrop().Build(74, 46, 32, rotoDropHeight),
-      ...new RotoDrop().Build(70, 48, 32, rotoDropHeight),
-      ...new RotoDrop().Build(82, 49, 32, rotoDropHeight),
-      ...new RotoDrop().Build(76, 52, 32, rotoDropHeight),
-      ...new RotoDrop().Build(72, 54, 32, rotoDropHeight)
+      ...new RotoDrop().Build(new TileCoord(61, 41), rotoDropHeight),
+      ...new RotoDrop().Build(new TileCoord(64, 37), rotoDropHeight),
+      ...new RotoDrop().Build(new TileCoord(69, 38), rotoDropHeight),
+      ...new RotoDrop().Build(new TileCoord(78, 44), rotoDropHeight),
+      ...new RotoDrop().Build(new TileCoord(74, 46), rotoDropHeight),
+      ...new RotoDrop().Build(new TileCoord(70, 48), rotoDropHeight),
+      ...new RotoDrop().Build(new TileCoord(82, 49), rotoDropHeight),
+      ...new RotoDrop().Build(new TileCoord(76, 52), rotoDropHeight),
+      ...new RotoDrop().Build(new TileCoord(72, 54), rotoDropHeight)
     ]);
   }
 }

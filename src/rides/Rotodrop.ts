@@ -1,7 +1,9 @@
-import { RideType } from "../enums/RideType";
 import RideUtilities from "./RideUtilities";
-import { TrackElemType } from "../enums/TrackElemType";
+import { RideType } from "../enums/RideType";
 import { RideStatus } from "../enums/RideStatus";
+import { TrackElemType } from "../enums/TrackElemType";
+import TileCoord from "../map/TileCoord";
+import MapUtilities from "../utilities/MapUtilities";
 
 export default class RotoDrop {
   static Identifiers: string[] = ["rct2.ride.gdrop1"];
@@ -11,10 +13,17 @@ export default class RotoDrop {
     this.vehicleObject = RideUtilities.GetRideObjectIndex(RotoDrop.Identifiers);
   }
 
-  Build(x: number, y: number, z: number, height: number): ((data: void) => void)[] {
+  Build(location: TileCoord, height: number): ((data: void) => void)[] {
     const actions = [];
-    let baseHeight: number = z;
     let currentRideId: number = 0;
+    
+    const exitLocation = new TileCoord(location.x - 2, location.y);
+    const entranceLocation = new TileCoord(location.x + 2, location.y);
+    
+    const platformTiles = location.NeighborsEight();
+    platformTiles.push(exitLocation);
+    platformTiles.push(entranceLocation);
+    const baseHeight = MapUtilities.maxHeight(platformTiles);
 
     actions.push(() => context.executeAction("ridecreate", <RideCreateArgs>{
       rideType: RideType.RotoDrop,
@@ -28,9 +37,9 @@ export default class RotoDrop {
     }));
 
     actions.push(() => context.executeAction("trackplace", <TrackPlaceArgs>{
-      x: x * 32,
-      y: y * 32,
-      z: baseHeight * 8,
+      x: location.WorldX,
+      y: location.WorldY,
+      z: baseHeight,
       direction: 0,
       ride: currentRideId,
       trackType: TrackElemType.TowerBase,
@@ -44,9 +53,9 @@ export default class RotoDrop {
 
     for (let i = 0; i < height; i += 1) {
       actions.push(() => context.executeAction("trackplace", <TrackPlaceArgs>{
-        x: x * 32,
-        y: y * 32,
-        z: (baseHeight + 12 + i * 4) * 8,
+        x: location.WorldX,
+        y: location.WorldY,
+        z: baseHeight + (12 + i * 4) * 8,
         direction: 0,
         ride: currentRideId,
         trackType: TrackElemType.TowerSection,
@@ -60,8 +69,8 @@ export default class RotoDrop {
     }
 
     actions.push(() => context.executeAction("rideentranceexitplace", <RideEntranceExitPlaceArgs>{
-      x: (x - 2) * 32,
-      y: y * 32,
+      x: exitLocation.WorldX,
+      y: exitLocation.WorldY,
       direction: 2,
       ride: currentRideId,
       station: 0,
@@ -69,8 +78,8 @@ export default class RotoDrop {
     }));
 
     actions.push(() => context.executeAction("rideentranceexitplace", <RideEntranceExitPlaceArgs>{
-      x: (x + 2) * 32,
-      y: y * 32,
+      x: entranceLocation.WorldX,
+      y: entranceLocation.WorldY,
       direction: 0,
       ride: currentRideId,
       station: 0,

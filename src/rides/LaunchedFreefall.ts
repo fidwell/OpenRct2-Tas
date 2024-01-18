@@ -3,6 +3,8 @@ import { RideStatus } from "../enums/RideStatus";
 import { RideType } from "../enums/RideType";
 import { TrackElemType } from "../enums/TrackElemType";
 import { RideSetSetting } from "../enums/RideSetSetting";
+import TileCoord from "../map/TileCoord";
+import MapUtilities from "../utilities/MapUtilities";
 
 export default class LaunchedFreefall {
   static Identifiers: string[] = ["rct2.ride.ssc1"];
@@ -12,28 +14,17 @@ export default class LaunchedFreefall {
     this.vehicleObject = RideUtilities.GetRideObjectIndex(LaunchedFreefall.Identifiers);
   }
 
-  Build(x: number, y: number, height: number): ((data: void) => void)[] {
+  Build(location: TileCoord, height: number): ((data: void) => void)[] {
     const actions = [];
     let currentRideId: number = 0;
 
-    const coordX = x * 32;
-    const coordY = y * 32;
+    const exitLocation = new TileCoord(location.x - 2, location.y);
+    const entranceLocation = new TileCoord(location.x + 2, location.y);
 
-    // Find the highest surface level that the platform will sit on.
-    // We could find a flat surface manually, but this should be reusable later
-    const platformTileCoordinates = [
-      [-1, -1], [-1, 0], [-1, 1],
-      [0, -1], [0, 0], [0, 1],
-      [1, -1], [1, 0], [1, 1],
-      [-2, 0], [2, 0] // entrance and exit
-    ].map(t => [t[0] + x, t[1] + y])
-    .map(c => {
-      const surfaceHere = <SurfaceElement>map.getTile(c[0], c[1]).elements.filter(e => e.type === "surface")[0];
-      const surfaceHeight = surfaceHere.slope > 0 ? surfaceHere.baseHeight + 2 : surfaceHere.baseHeight;
-      const baseHeight: number = Math.max(surfaceHeight * 8, surfaceHere.waterHeight);
-      return baseHeight;
-    });
-    const baseHeight = Math.max(...platformTileCoordinates);
+    const platformTiles = location.NeighborsEight();
+    platformTiles.push(exitLocation);
+    platformTiles.push(entranceLocation);
+    const baseHeight = MapUtilities.maxHeight(platformTiles);
 
     actions.push(() => context.executeAction("ridecreate", <RideCreateArgs>{
       rideType: RideType.LaunchedFreefall,
@@ -47,8 +38,8 @@ export default class LaunchedFreefall {
     }));
 
     actions.push(() => context.executeAction("trackplace", <TrackPlaceArgs>{
-      x: coordX,
-      y: coordY,
+      x: location.WorldX,
+      y: location.WorldY,
       z: baseHeight,
       direction: 0,
       ride: currentRideId,
@@ -63,8 +54,8 @@ export default class LaunchedFreefall {
 
     for (let i = 0; i < height; i += 1) {
       actions.push(() => context.executeAction("trackplace", <TrackPlaceArgs>{
-        x: coordX,
-        y: coordY,
+        x: location.WorldX,
+        y: location.WorldY,
         z: baseHeight + (12 + i * 4) * 8,
         direction: 0,
         ride: currentRideId,
@@ -79,8 +70,8 @@ export default class LaunchedFreefall {
     }
 
     actions.push(() => context.executeAction("rideentranceexitplace", <RideEntranceExitPlaceArgs>{
-      x: (x - 2) * 32,
-      y: coordY,
+      x: exitLocation.WorldX,
+      y: exitLocation.WorldY,
       direction: 2,
       ride: currentRideId,
       station: 0,
@@ -88,8 +79,8 @@ export default class LaunchedFreefall {
     }));
 
     actions.push(() => context.executeAction("rideentranceexitplace", <RideEntranceExitPlaceArgs>{
-      x: (x + 2) * 32,
-      y: coordY,
+      x: entranceLocation.WorldX,
+      y: entranceLocation.WorldY,
       direction: 0,
       ride: currentRideId,
       station: 0,
