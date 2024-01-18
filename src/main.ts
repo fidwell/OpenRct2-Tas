@@ -41,6 +41,7 @@ const main = (): void => {
     scenarioCompleted = false;
     startDate = new Date();
     startTicks = date.ticksElapsed;
+    ui.closeAllWindows();
   });
 
   context.subscribe("interval.tick", () => {
@@ -66,7 +67,10 @@ const main = (): void => {
       return;
 
     runner.Actions[currentAction]();
-    currentAction += 1;
+    
+    if (!runner.IsWaiting) {
+      currentAction += 1;
+    }
   });
 };
 
