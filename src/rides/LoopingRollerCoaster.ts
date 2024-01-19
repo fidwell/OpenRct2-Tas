@@ -1,10 +1,10 @@
-import { RideType } from "../enums/RideType";
 import RideUtilities from "./RideUtilities";
-import { TrackElemType } from "../enums/TrackElemType";
-import { RideSetSetting } from "../enums/RideSetSetting";
-import { RideMode } from "../enums/RideMode";
 import { TrackPlacer } from "./TrackPlacer";
+import RideModify from "../actions/RideModify";
+import { RideMode } from "../enums/RideMode";
 import { RideStatus } from "../enums/RideStatus";
+import { RideType } from "../enums/RideType";
+import { TrackElemType } from "../enums/TrackElemType";
 
 export default class LoopingRollerCoaster {
   static Identifiers: string[] = ["rct2tt.ride.polchase"];
@@ -46,23 +46,10 @@ export default class LoopingRollerCoaster {
       placer.BuildPiece(TrackElemType.Up60),
       placer.BuildEntrance(),
       placer.BuildExit(),
-      // Set to powered launch (without passing station)
-      () => context.executeAction("ridesetsetting", <RideSetSettingArgs>{
-        ride: rideId,
-        setting: RideSetSetting.Mode,
-        value: RideMode.PoweredLaunch
-      }),
-      // Set launch speed to 40 mph
-      () => context.executeAction("ridesetsetting", <RideSetSettingArgs>{
-        ride: rideId,
-        setting: RideSetSetting.Operation,
-        value: 18 // (40 mph or 64 km/h) // 10–27 are the only valid numbers
-      }),
-      // Test
-      () => context.executeAction("ridesetstatus", <RideSetStatusArgs>{
-        ride: rideId,
-        status: RideStatus.Testing
-      })
+      () => RideModify.Mode(rideId, RideMode.PoweredLaunchWithoutPassingStation),
+      () => RideModify.LaunchSpeed(rideId, 18),
+        // (40 mph or 64 km/h) // 10–27 are the only valid numbers
+      () => RideModify.Status(rideId, RideStatus.Testing)
     ];
   }
 }

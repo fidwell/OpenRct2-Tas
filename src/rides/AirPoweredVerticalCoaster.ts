@@ -1,8 +1,9 @@
+import RideUtilities from "./RideUtilities";
+import { TrackPlacer } from "./TrackPlacer";
+import RideModify from "../actions/RideModify";
 import { RideStatus } from "../enums/RideStatus";
 import { RideType } from "../enums/RideType";
 import { TrackElemType } from "../enums/TrackElemType";
-import RideUtilities from "./RideUtilities";
-import { TrackPlacer } from "./TrackPlacer";
 
 export default class AirPoweredVerticalCoaster {
   static Identifiers: string[] = ["rct2.ride.thcar"];
@@ -39,10 +40,7 @@ export default class AirPoweredVerticalCoaster {
       placer.BuildPiece(TrackElemType.LeftQuarterTurn5Tiles),
       placer.BuildEntrance(),
       placer.BuildExit(),
-      () => context.executeAction("ridesetstatus", <RideSetStatusArgs>{
-        ride: rideId,
-        status: RideStatus.Testing
-      })
+      () => RideModify.Status(rideId, RideStatus.Testing)
     ];
   }
 }

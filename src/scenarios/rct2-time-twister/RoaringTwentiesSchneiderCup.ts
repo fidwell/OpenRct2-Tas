@@ -1,4 +1,5 @@
 import ScenarioRunner from "../ScenarioRunner";
+import GameSetSpeed from "../../actions/GameSetSpeed";
 import AirPoweredVerticalCoaster from "../../rides/AirPoweredVerticalCoaster";
 import LoopingRollerCoaster from "../../rides/LoopingRollerCoaster";
 
@@ -6,8 +7,7 @@ export default class RoaringTwentiesSchneiderCup extends ScenarioRunner {
   constructor(method: number) {
     let actions = method == 1
       ? [
-        // Go fast
-        () => context.executeAction("gamesetspeed", <GameSetSpeedArgs>{ speed: 8 }),
+        () => GameSetSpeed.Turbo(),
         // Take out $5,000 loan
         () => context.executeAction("parksetloan", <ParkSetLoanArgs>{ value: 50000 }),
         // Build and open some shuttle loops
@@ -21,8 +21,7 @@ export default class RoaringTwentiesSchneiderCup extends ScenarioRunner {
         ...new LoopingRollerCoaster().BuildShuttleLoop(12, 52, 60, 2)
       ]
       : [
-        // Go fast
-        () => context.executeAction("gamesetspeed", <GameSetSpeedArgs>{ speed: 8 }),
+        () => GameSetSpeed.Turbo(),
         // Build and open some APVs
         ...new AirPoweredVerticalCoaster().BuildTinyLoop(6, 88, 60, 3),
         ...new AirPoweredVerticalCoaster().BuildTinyLoop(9, 71, 60, 3),

@@ -3,7 +3,7 @@ export enum RideMode {
   Normal,
   ContinuousCircuit,
   ReverseInclineLaunchedShuttle,
-  PoweredLaunchPasstrough, // RCT2 style, pass through station
+  PoweredLaunchPassingStation,
   Shuttle,
   BoatHire,
   UpwardLaunch,
@@ -35,7 +35,7 @@ export enum RideMode {
   CrookedHouse,
   FreefallDrop,
   ContinuousCircuitBlockSectioned,
-  PoweredLaunch, // RCT1 style, don't pass through station
+  PoweredLaunchWithoutPassingStation,
   PoweredLaunchBlockSectioned,
 
   Count,

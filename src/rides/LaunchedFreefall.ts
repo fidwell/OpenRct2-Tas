@@ -1,8 +1,8 @@
 import RideUtilities from "./RideUtilities";
+import RideModify from "../actions/RideModify";
 import { RideStatus } from "../enums/RideStatus";
 import { RideType } from "../enums/RideType";
 import { TrackElemType } from "../enums/TrackElemType";
-import { RideSetSetting } from "../enums/RideSetSetting";
 import TileCoord from "../map/TileCoord";
 import MapUtilities from "../utilities/MapUtilities";
 
@@ -87,17 +87,8 @@ export default class LaunchedFreefall {
       isExit: true
     }));
 
-    actions.push(() => context.executeAction("ridesetsetting", <RideSetSettingArgs>{
-      ride: currentRideId,
-      setting: RideSetSetting.Operation,
-      value: 31 // 69 mph
-    }));
-
-    actions.push(() => context.executeAction("ridesetstatus", <RideSetStatusArgs>{
-      ride: currentRideId,
-      status: RideStatus.Testing
-    }));
-
+    actions.push(() => RideModify.LaunchSpeed(currentRideId, 31)); // 69 mph
+    actions.push(() => RideModify.Status(currentRideId, RideStatus.Testing));
     return actions;
   }
 }
