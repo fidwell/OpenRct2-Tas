@@ -1,4 +1,5 @@
 import RideUtilities from "./RideUtilities";
+import RideBuild from "../actions/RideBuild";
 import RideModify from "../actions/RideModify";
 import { RideStatus } from "../enums/RideStatus";
 import { RideType } from "../enums/RideType";
@@ -26,67 +27,25 @@ export default class LaunchedFreefall {
     platformTiles.push(entranceLocation);
     const baseHeight = MapUtilities.maxHeight(platformTiles);
 
-    actions.push(() => context.executeAction("ridecreate", <RideCreateArgs>{
-      rideType: RideType.LaunchedFreefall,
-      rideObject: this.vehicleObject,
-      entranceObject: 0, // Probably plain
-      colour1: 0,
-      colour2: 0
-    }, (result: RideCreateActionResult) => {
-      if (result.ride !== undefined)
-        currentRideId = result.ride;
-    }));
+    actions.push(() => {
+      RideBuild.Create(RideType.LaunchedFreefall, this.vehicleObject,
+        (result: RideCreateActionResult) => {
+          if (result.ride !== undefined) {
+            currentRideId = result.ride;
+          }
+        });
+    });
 
-    actions.push(() => context.executeAction("trackplace", <TrackPlaceArgs>{
-      x: location.WorldX,
-      y: location.WorldY,
-      z: baseHeight,
-      direction: 0,
-      ride: currentRideId,
-      trackType: TrackElemType.TowerBase,
-      rideType: RideType.LaunchedFreefall,
-      brakeSpeed: 0,
-      colour: 0,
-      seatRotation: 0,
-      trackPlaceFlags: 0,
-      isFromTrackDesign: false
-    }));
+    actions.push(() => RideBuild.PlaceTrack(currentRideId, location, baseHeight,
+      0, TrackElemType.TowerBase, RideType.LaunchedFreefall));
 
     for (let i = 0; i < height; i += 1) {
-      actions.push(() => context.executeAction("trackplace", <TrackPlaceArgs>{
-        x: location.WorldX,
-        y: location.WorldY,
-        z: baseHeight + (12 + i * 4) * 8,
-        direction: 0,
-        ride: currentRideId,
-        trackType: TrackElemType.TowerSection,
-        rideType: RideType.LaunchedFreefall,
-        brakeSpeed: 0,
-        colour: 0,
-        seatRotation: 0,
-        trackPlaceFlags: 0,
-        isFromTrackDesign: false
-      }));
+      actions.push(() => RideBuild.PlaceTrack(currentRideId, location, baseHeight + (12 + i * 4) * 8,
+        0, TrackElemType.TowerSection, RideType.LaunchedFreefall));
     }
 
-    actions.push(() => context.executeAction("rideentranceexitplace", <RideEntranceExitPlaceArgs>{
-      x: exitLocation.WorldX,
-      y: exitLocation.WorldY,
-      direction: 2,
-      ride: currentRideId,
-      station: 0,
-      isExit: false
-    }));
-
-    actions.push(() => context.executeAction("rideentranceexitplace", <RideEntranceExitPlaceArgs>{
-      x: entranceLocation.WorldX,
-      y: entranceLocation.WorldY,
-      direction: 0,
-      ride: currentRideId,
-      station: 0,
-      isExit: true
-    }));
-
+    actions.push(() => RideBuild.PlaceEntrance(currentRideId, entranceLocation, 2));
+    actions.push(() => RideBuild.PlaceExit(currentRideId, exitLocation, 0));
     actions.push(() => RideModify.LaunchSpeed(currentRideId, 31)); // 69 mph
     actions.push(() => RideModify.Status(currentRideId, RideStatus.Testing));
     return actions;

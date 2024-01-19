@@ -1,4 +1,6 @@
+import RideBuild from "../actions/RideBuild";
 import { TrackElemType } from "../enums/TrackElemType";
+import TileCoord from "../map/TileCoord";
 
 export class TrackPlacer {
   private rideId: number;
@@ -128,13 +130,12 @@ export class TrackPlacer {
   BuildExit = (): ((data: void) => void) => this.BuildEntranceExit(true);
 
   private BuildEntranceExit(isExit: boolean): ((data: void) => void) {
-    return () => context.executeAction("rideentranceexitplace", <RideEntranceExitPlaceArgs>{
-      x: (this.startDir % 2 === 0 ? this.startX : (this.startX + (isExit ? 1 : -1))) * 32,
-      y: (this.startDir % 2 === 1 ? this.startY : (this.startY + (isExit ? 1 : -1))) * 32,
-      direction: (this.startDir + (isExit ? 1 : 3)) % 4,
-      ride: this.rideId,
-      station: 0,
-      isExit: isExit
-    });
+    const x = (this.startDir % 2 === 0 ? this.startX : (this.startX + (isExit ? 1 : -1)));
+    const y = (this.startDir % 2 === 1 ? this.startY : (this.startY + (isExit ? 1 : -1)));
+    const location = new TileCoord(x, y);
+    const direction = (this.startDir + (isExit ? 1 : 3)) % 4;
+    return isExit
+      ? () => RideBuild.PlaceExit(this.rideId, location, direction)
+      : () => RideBuild.PlaceEntrance(this.rideId, location, direction);
   }
 }

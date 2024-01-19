@@ -1,5 +1,6 @@
 import RideUtilities from "./RideUtilities";
 import { TrackPlacer } from "./TrackPlacer";
+import RideBuild from "../actions/RideBuild";
 import RideModify from "../actions/RideModify";
 import { RideStatus } from "../enums/RideStatus";
 import { RideType } from "../enums/RideType";
@@ -18,18 +19,13 @@ export default class AirPoweredVerticalCoaster {
     const placer = new TrackPlacer(RideType.AirPoweredVerticalCoaster, x, y, z, direction);
 
     return [
-      () => context.executeAction("ridecreate", <RideCreateArgs>{
-        rideType: RideType.AirPoweredVerticalCoaster,
-        rideObject: this.vehicleObject,
-        entranceObject: 0, // Probably plain
-        colour1: 0,
-        colour2: 0
-      }, (result: RideCreateActionResult) => {
-        if (result.ride !== undefined) {
-          rideId = result.ride;
-          placer.SetRideId(result.ride);
-        }
-      }),
+      () => RideBuild.Create(RideType.AirPoweredVerticalCoaster, this.vehicleObject,
+        (result: RideCreateActionResult) => {
+          if (result.ride !== undefined) {
+            rideId = result.ride;
+            placer.SetRideId(result.ride);
+          }
+        }),
       placer.BuildPiece(TrackElemType.BeginStation),
       placer.BuildPiece(TrackElemType.EndStation),
       placer.BuildPiece(TrackElemType.LeftQuarterTurn5Tiles),

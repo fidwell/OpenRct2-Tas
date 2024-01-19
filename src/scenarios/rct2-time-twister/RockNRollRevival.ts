@@ -1,5 +1,6 @@
 import ScenarioRunner from "../ScenarioRunner";
 import GameSetSpeed from "../../actions/GameSetSpeed";
+import RideModify from "../../actions/RideModify";
 import TileCoord from "../../map/TileCoord";
 import RotoDrop from "../../rides/Rotodrop";
 import ArrayUtilities from "../../utilities/ArrayUtilities";
@@ -11,7 +12,7 @@ export default class RockNRollRevival extends ScenarioRunner {
       // Go fast
       () => GameSetSpeed.Turbo(),
       // Delete all rides
-      ...ArrayUtilities.range(0, 14).map(i => () => context.executeAction("ridedemolish", <RideDemolishArgs>{ ride: i, modifyType: 0 })),
+      ...ArrayUtilities.range(0, 14).map(i => () => RideModify.Demolish(i)),
       // Pay off loan
       () => context.executeAction("parksetloan", <ParkSetLoanArgs>{ value: 0 }),
       // Build 9 really tall roto-drops in test mode
