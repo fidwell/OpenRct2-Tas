@@ -1,18 +1,17 @@
-import RideUtilities from "./RideUtilities";
-import RideBuild from "../actions/RideBuild";
-import RideModify from "../actions/RideModify";
-import { RideStatus } from "../enums/RideStatus";
-import { RideType } from "../enums/RideType";
-import { TrackElemType } from "../enums/TrackElemType";
-import TileCoord from "../map/TileCoord";
-import MapUtilities from "../utilities/MapUtilities";
+import RideBuild from "../../actions/RideBuild";
+import RideModify from "../../actions/RideModify";
+import { RideStatus } from "../../enums/RideStatus";
+import { RideType } from "../../enums/RideType";
+import { TrackElemType } from "../../enums/TrackElemType";
+import TileCoord from "../../map/TileCoord";
+import MapUtilities from "../../utilities/MapUtilities";
+import Ride from "../Ride";
 
-export default class LaunchedFreefall {
+export default class LaunchedFreefall extends Ride {
   static Identifiers: string[] = ["rct2.ride.ssc1"];
-  private vehicleObject: number = -1;
 
   constructor() {
-    this.vehicleObject = RideUtilities.GetRideObjectIndex(LaunchedFreefall.Identifiers);
+    super(LaunchedFreefall.Identifiers)
   }
 
   Build(location: TileCoord, height: number): ((data: void) => void)[] {
@@ -28,7 +27,7 @@ export default class LaunchedFreefall {
     const baseHeight = MapUtilities.maxHeight(platformTiles);
 
     actions.push(() => {
-      RideBuild.Create(RideType.LaunchedFreefall, this.vehicleObject,
+      RideBuild.Create(RideType.LaunchedFreefall, this.VehicleId,
         (result: RideCreateActionResult) => {
           if (result.ride !== undefined) {
             currentRideId = result.ride;

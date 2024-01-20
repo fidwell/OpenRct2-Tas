@@ -1,11 +1,11 @@
-import ScenarioRunner from "../ScenarioRunner";
 import GameSetSpeed from "../../actions/GameSetSpeed";
+import ParkModify from "../../actions/ParkModify";
 import { ResearchFunding } from "../../enums/ResarchFunding";
 import { ResearchPriorities } from "../../enums/ResearchPriorities";
 import TileCoord from "../../map/TileCoord";
-import RideUtilities from "../../rides/RideUtilities";
-import LaunchedFreefall from "../../rides/LaunchedFreefall";
-import ParkModify from "../../actions/ParkModify";
+import LaunchedFreefall from "../../rides/thrillRides/LaunchedFreefall";
+import RideUtilities from "../../utilities/RideUtilities";
+import ScenarioRunner from "../ScenarioRunner";
 
 export default class HydroHills extends ScenarioRunner {
   private launchedFreefallIndex: number = -1;

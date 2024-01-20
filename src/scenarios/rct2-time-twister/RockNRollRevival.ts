@@ -1,10 +1,10 @@
-import ScenarioRunner from "../ScenarioRunner";
 import GameSetSpeed from "../../actions/GameSetSpeed";
 import ParkModify from "../../actions/ParkModify";
 import RideModify from "../../actions/RideModify";
 import TileCoord from "../../map/TileCoord";
-import RotoDrop from "../../rides/Rotodrop";
+import RotoDrop from "../../rides/thrillRides/Rotodrop";
 import ArrayUtilities from "../../utilities/ArrayUtilities";
+import ScenarioRunner from "../ScenarioRunner";
 
 export default class RockNRollRevival extends ScenarioRunner {
   constructor() {

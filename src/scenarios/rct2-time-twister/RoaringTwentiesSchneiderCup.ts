@@ -1,8 +1,8 @@
-import ScenarioRunner from "../ScenarioRunner";
 import GameSetSpeed from "../../actions/GameSetSpeed";
 import ParkModify from "../../actions/ParkModify";
-import AirPoweredVerticalCoaster from "../../rides/AirPoweredVerticalCoaster";
-import LoopingRollerCoaster from "../../rides/LoopingRollerCoaster";
+import AirPoweredVerticalCoaster from "../../rides/rollerCoasters/AirPoweredVerticalCoaster";
+import LoopingRollerCoaster from "../../rides/rollerCoasters/LoopingRollerCoaster";
+import ScenarioRunner from "../ScenarioRunner";
 
 export default class RoaringTwentiesSchneiderCup extends ScenarioRunner {
   constructor(method: number) {
