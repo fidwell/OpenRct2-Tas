@@ -1,6 +1,7 @@
 import ScenarioRunner from "./ScenarioRunner";
 import HydroHills from "./rct1-corkscrew-follies/HydroHills";
 import MineralPark from "./rct1-corkscrew-follies/MineralPark";
+import AnimatronicFilmSet from "./rct2-time-twister/AnimatronicFilmSet";
 import CradleOfCivilization from "./rct2-time-twister/CradleOfCivilization";
 import DarkAgeRobinHood from "./rct2-time-twister/DarkAgeRobinHood";
 import RoaringTwentiesSchneiderCup from "./rct2-time-twister/RoaringTwentiesSchneiderCup";
@@ -12,6 +13,7 @@ export default class RunnerFactory {
     "SC50.SC4": () => new HydroHills(),
     "SC66.SC4": () => new MineralPark(),
     "Dark Age - Robin Hood.SC6": () => new DarkAgeRobinHood(),
+    "Mythological - Animatronic Film Set.SC6": () => new AnimatronicFilmSet(),
     "Roaring Twenties - Schneider Cup.SC6": () => new RoaringTwentiesSchneiderCup(2),
     "Mythological - Cradle of Civilization.SC6": () => new CradleOfCivilization(),
     "Rock 'n' Roll - Rock 'n' Roll.SC6": () => new RockNRollRevival(),

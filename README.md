@@ -11,6 +11,7 @@ A [tool-assisted speedrun](https://en.wikipedia.org/wiki/Tool-assisted_speedrun)
 | Hydro Hills | 16,384 ticks |
 | Mineral Park | 18,023 ticks |
 | Dark Age - Robin Hood | 16,384 ticks |
+| Mythological - Animatronic Film Set | 2,643 ticks |
 | Roaring Twenties - Schneider Cup | 529 ticks |
 | Mythological - Cradle of Civilization | 2,643 ticks |
 | Rock 'n' Roll - Rock 'n' Roll | 2,643 ticks |
