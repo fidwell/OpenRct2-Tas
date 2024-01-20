@@ -1,4 +1,5 @@
 import RideBuild from "../actions/RideBuild";
+import { RideType } from "../enums/RideType";
 import { TrackElemType } from "../enums/TrackElemType";
 import TileCoord from "../map/TileCoord";
 
@@ -10,7 +11,7 @@ export class TrackPlacer {
   private stationLocation: TileCoord;
 
   constructor(
-    private rideType: number,
+    private rideType: RideType,
     private x: number,
     private y: number,
     private z: number,
