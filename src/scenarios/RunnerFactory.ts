@@ -8,12 +8,17 @@ import DarkAgeRobinHood from "./rct2-time-twister/DarkAgeRobinHood";
 import FutureWorld from "./rct2-time-twister/FutureWorld";
 import RoaringTwentiesSchneiderCup from "./rct2-time-twister/RoaringTwentiesSchneiderCup";
 import RockNRollRevival from "./rct2-time-twister/RockNRollRevival";
+import RioCarnival from "./rct2-wacky-worlds/RioCarnival";
 import SixFlagsMm from "./real-parks/SixFlagsMagicMountain";
 
 export default class RunnerFactory {
   private static Runners: { [key: string]: ((_: void) => ScenarioRunner) } = {
+    // Corkscrew Follies
     "SC50.SC4": () => new HydroHills(),
     "SC66.SC4": () => new MineralPark(),
+    // Wacky Worlds
+    "South America - Rio Carnival.SC6": () => new RioCarnival(),
+    // Time Twister
     "Dark Age - Robin Hood.SC6": () => new DarkAgeRobinHood(),
     "Prehistoric - After the Asteroid.SC6": () => new AfterTheAsteroid(),
     "Mythological - Animatronic Film Set.SC6": () => new AnimatronicFilmSet(),

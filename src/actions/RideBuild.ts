@@ -21,7 +21,8 @@ export default class RideBuild {
     direction: number,
     trackType: TrackElemType,
     rideType: RideType,
-    hasChain: boolean = false) {
+    hasChain: boolean = false,
+    brakeOrBoosterSpeed: number = 0) {
       context.executeAction("trackplace", <TrackPlaceArgs>{
         x: location.WorldX,
         y: location.WorldY,
@@ -30,7 +31,7 @@ export default class RideBuild {
         ride: rideId,
         trackType,
         rideType,
-        brakeSpeed: 0,
+        brakeSpeed: brakeOrBoosterSpeed,
         colour: 0,
         seatRotation: 0,
         trackPlaceFlags: hasChain ? TrackPlaceFlags.LiftHill : 0,

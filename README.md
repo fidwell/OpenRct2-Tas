@@ -8,8 +8,12 @@ A [tool-assisted speedrun](https://en.wikipedia.org/wiki/Tool-assisted_speedrun)
 
 | Scenario | Record |
 | -------- | ----- |
+| **Corkscrew Follies** |
 | Hydro Hills | 16,384 ticks |
 | Mineral Park | 18,023 ticks |
+| **Wacky Worlds** |
+| South America - Rio Carnival | 3,700 ticks | 
+| **Time Twister** |
 | Dark Age - Robin Hood | 16,384 ticks |
 | Prehistoric - After the Asteroid | 2,115 ticks |
 | Mythological - Animatronic Film Set | 2,643 ticks |

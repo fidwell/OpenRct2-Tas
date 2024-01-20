@@ -27,7 +27,7 @@ export class TrackPlacer {
     this.rideId = rideId;
   }
 
-  BuildPiece(trackElemType: TrackElemType, hasChain = false): ((data: void) => void) {
+  BuildPiece(trackElemType: TrackElemType, hasChain = false, boosterSpeed = 0): ((data: void) => void) {
     return () => {
       // ----
       // Calculate where the iterator will be next
@@ -41,6 +41,7 @@ export class TrackPlacer {
 
       switch (trackElemType) {
         case TrackElemType.Flat: // 0
+        case TrackElemType.Booster:
           forward += 1;
           break;
 
@@ -66,6 +67,11 @@ export class TrackPlacer {
           up += 4;
           break;
 
+        case TrackElemType.Up60ToUp25: // 8
+          forward += 1;
+          up += 4;
+          break;
+
         case TrackElemType.Up25ToFlat: // 9
           forward += 1;
           up += 1;
@@ -74,6 +80,16 @@ export class TrackPlacer {
         case TrackElemType.Down60: // 11
           forward += 1;
           up -= 8;
+          break;
+
+        case TrackElemType.FlatToDown25: // 12
+          forward += 1;
+          up -= 1;
+          break;
+
+        case TrackElemType.Down25ToDown60: // 13
+          forward += 1;
+          up -= 4;
           break;
 
         case TrackElemType.Down60ToDown25: // 14
@@ -135,6 +151,18 @@ export class TrackPlacer {
           isUninverting = true;
           break;
 
+        case TrackElemType.RightQuarterTurn1TileUp60: // 96
+          right += 1;
+          up += 8;
+          turn += 1;
+          break;
+
+        case TrackElemType.RightQuarterTurn1TileDown60: // 98
+          right += 1;
+          up -= 8;
+          turn += 1;
+          break;
+
         default:
           console.log(`Unsupported track element type: ${trackElemType}`);
           break;
@@ -142,7 +170,7 @@ export class TrackPlacer {
 
       const pieceBaseHeight = this.z + (isUninverting ? 0 : Math.min(0, up));
       RideBuild.PlaceTrack(this.rideId, new TileCoord(this.x, this.y),
-        pieceBaseHeight * 8, this.direction, trackElemType, this.rideType, hasChain);
+        pieceBaseHeight * 8, this.direction, trackElemType, this.rideType, hasChain, boosterSpeed);
 
       this.z += up;
 

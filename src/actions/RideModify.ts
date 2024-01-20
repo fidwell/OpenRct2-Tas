@@ -1,8 +1,17 @@
 import { RideMode } from "../enums/RideMode";
-import { RideSetSetting as RideSetSetting } from "../enums/RideSetSetting";
+import { RideSetSetting } from "../enums/RideSetSetting";
+import { RideSetVehicleType } from "../enums/RideSetVehicleType";
 import { RideStatus } from "../enums/RideStatus";
 
 export default class RideModify {
+  public static Circuits(rideId: number, circuits: number) {
+    context.executeAction("ridesetsetting", <RideSetSettingArgs>{
+      ride: rideId,
+      setting: RideSetSetting.NumCircuits,
+      value: circuits
+    });
+  }
+
   public static Demolish(rideId: number) {
     context.executeAction("ridedemolish", <RideDemolishArgs>{
       ride: rideId,
@@ -39,6 +48,15 @@ export default class RideModify {
     context.executeAction("ridesetstatus", <RideSetStatusArgs>{
       ride: rideId,
       status: status
+    });
+  }
+
+  public static Trains(rideId: number, trains: number) {
+    context.executeAction("ridesetvehicle", <RideSetVehicleArgs>{
+      ride: rideId,
+      type: RideSetVehicleType.NumberOfTrains,
+      value: trains,
+      colour: 0
     });
   }
 }
