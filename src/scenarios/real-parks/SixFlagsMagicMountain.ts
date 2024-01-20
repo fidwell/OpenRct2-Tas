@@ -6,6 +6,7 @@ to see whether you've completed the objective.
 
 import ScenarioRunner from "../ScenarioRunner";
 import GameSetSpeed from "../../actions/GameSetSpeed";
+import ParkModify from "../../actions/ParkModify";
 import RideModify from "../../actions/RideModify";
 
 export default class SixFlagsMm extends ScenarioRunner {
@@ -15,9 +16,7 @@ export default class SixFlagsMm extends ScenarioRunner {
       () => RideModify.Demolish(2),
       // Sell Flashback
       () => RideModify.Demolish(26),
-      // Pay off loan
-      () => context.executeAction("parksetloan", <ParkSetLoanArgs>{ value: 0 }),
-      // Go fast
+      () => ParkModify.SetLoan(0),
       () => GameSetSpeed.Turbo()
     ]);
   }

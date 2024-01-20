@@ -3,7 +3,7 @@ import { TrackElemType } from "../enums/TrackElemType";
 import TileCoord from "../map/TileCoord";
 
 export default class RideBuild {
-  static Create(type: RideType, vehicleObject: number, callback?: (result: RideCreateActionResult) => void) {
+  public static Create(type: RideType, vehicleObject: number, callback?: (result: RideCreateActionResult) => void) {
     context.executeAction("ridecreate", <RideCreateArgs>{
       rideType: type,
       rideObject: vehicleObject,
@@ -13,7 +13,7 @@ export default class RideBuild {
     }, callback);
   }
 
-  static PlaceTrack(
+  public static PlaceTrack(
     rideId: number,
     location: TileCoord,
     baseHeight: number,
@@ -36,11 +36,11 @@ export default class RideBuild {
       });
   }
 
-  static PlaceEntrance(rideId: number, location: TileCoord, direction: number) {
+  public static PlaceEntrance(rideId: number, location: TileCoord, direction: number) {
     this.PlaceEntranceExit(rideId, location, direction, false);
   }
 
-  static PlaceExit(rideId: number, location: TileCoord, direction: number) {
+  public static PlaceExit(rideId: number, location: TileCoord, direction: number) {
     this.PlaceEntranceExit(rideId, location, direction, true);
   }
 

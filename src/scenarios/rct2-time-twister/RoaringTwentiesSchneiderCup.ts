@@ -1,5 +1,6 @@
 import ScenarioRunner from "../ScenarioRunner";
 import GameSetSpeed from "../../actions/GameSetSpeed";
+import ParkModify from "../../actions/ParkModify";
 import AirPoweredVerticalCoaster from "../../rides/AirPoweredVerticalCoaster";
 import LoopingRollerCoaster from "../../rides/LoopingRollerCoaster";
 
@@ -8,8 +9,7 @@ export default class RoaringTwentiesSchneiderCup extends ScenarioRunner {
     let actions = method == 1
       ? [
         () => GameSetSpeed.Turbo(),
-        // Take out $5,000 loan
-        () => context.executeAction("parksetloan", <ParkSetLoanArgs>{ value: 50000 }),
+        () => ParkModify.SetLoan(50000),
         // Build and open some shuttle loops
         ...new LoopingRollerCoaster().BuildShuttleLoop(4, 88, 60, 2),
         ...new LoopingRollerCoaster().BuildShuttleLoop(6, 77, 60, 2),

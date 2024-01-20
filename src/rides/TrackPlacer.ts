@@ -26,20 +26,8 @@ export class TrackPlacer {
 
   BuildPiece(trackElemType: TrackElemType): ((data: void) => void) {
     return () => {
-      context.executeAction("trackplace", <TrackPlaceArgs>{
-        x: this.x * 32,
-        y: this.y * 32,
-        z: this.z * 8,
-        direction: this.direction,
-        ride: this.rideId,
-        trackType: trackElemType,
-        rideType: this.rideType,
-        brakeSpeed: 0,
-        colour: 0,
-        seatRotation: 0,
-        trackPlaceFlags: 0,
-        isFromTrackDesign: false
-      });
+      RideBuild.PlaceTrack(this.rideId, new TileCoord(this.x, this.y),
+        this.z * 8, this.direction, trackElemType, this.rideType);
 
       // ----
       // Calculate where the iterator will be next

@@ -5,6 +5,7 @@ import { ResearchPriorities } from "../../enums/ResearchPriorities";
 import TileCoord from "../../map/TileCoord";
 import RideUtilities from "../../rides/RideUtilities";
 import LaunchedFreefall from "../../rides/LaunchedFreefall";
+import ParkModify from "../../actions/ParkModify";
 
 export default class HydroHills extends ScenarioRunner {
   private launchedFreefallIndex: number = -1;
@@ -12,11 +13,8 @@ export default class HydroHills extends ScenarioRunner {
   constructor() {
     const freefallHeight: number = 16;
     super([
-      () => context.executeAction("parksetloan", <ParkSetLoanArgs>{ value: 200000 }),
-      () => context.executeAction("parksetresearchfunding", <ParkSetResearchFundingArgs>{
-        fundingAmount: ResearchFunding.Maximum,
-        priorities: ResearchPriorities.Thrill
-      }),
+      () => ParkModify.SetLoan(200000),
+      () => ParkModify.SetResearch(ResearchFunding.Maximum, ResearchPriorities.Thrill),
       () => {
         this.launchedFreefallIndex = RideUtilities.GetRideObjectIndex(LaunchedFreefall.Identifiers);
         GameSetSpeed.Turbo();

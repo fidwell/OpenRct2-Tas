@@ -1,5 +1,5 @@
 export default class GameSetSpeed {
-  static Turbo() {
+  public static Turbo() {
     context.executeAction("gamesetspeed", <GameSetSpeedArgs>{ speed: 8 });
   }
 }
