@@ -175,6 +175,18 @@ export class TrackPlacer {
     };
   }
 
+  BuildStation(length: number): ((data: void) => void)[] {
+    const result: ((data: void) => void)[] = [];
+    result.push(this.BuildPiece(TrackElemType.EndStation));
+    for (let i = 1; i < length - 1; i++) {
+      result.push(this.BuildPiece(TrackElemType.MiddleStation));
+    }
+    if (length >= 2) {
+      result.push(this.BuildPiece(TrackElemType.BeginStation));
+    }
+    return result;
+  }
+
   BuildEntrance = (): ((data: void) => void) => this.BuildEntranceExit(false);
   BuildExit = (): ((data: void) => void) => this.BuildEntranceExit(true);
 

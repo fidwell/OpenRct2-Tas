@@ -26,11 +26,9 @@ export default class AirPoweredVerticalCoaster {
             placer.SetRideId(result.ride);
           }
         }),
-      placer.BuildPiece(TrackElemType.BeginStation),
-      placer.BuildPiece(TrackElemType.EndStation),
+      ...placer.BuildStation(1),
       placer.BuildPiece(TrackElemType.LeftQuarterTurn5Tiles),
       placer.BuildPiece(TrackElemType.LeftQuarterTurn5Tiles),
-      placer.BuildPiece(TrackElemType.Flat),
       placer.BuildPiece(TrackElemType.Flat),
       placer.BuildPiece(TrackElemType.LeftQuarterTurn5Tiles),
       placer.BuildPiece(TrackElemType.LeftQuarterTurn5Tiles),

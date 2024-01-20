@@ -24,10 +24,10 @@ export default class MineralPark extends ScenarioRunner {
           this.IsWaiting = false;
         }
       },
-      ...new CorkscrewRollerCoaster().BuildBoomerang(59, 50, 0, 51),
-      ...new CorkscrewRollerCoaster().BuildBoomerang(59, 45, 0, 51),
-      ...new CorkscrewRollerCoaster().BuildBoomerang(59, 40, 0, 51),
-      ...new CorkscrewRollerCoaster().BuildBoomerang(67, 33, 1, 51)
+      ...new CorkscrewRollerCoaster().BuildBoomerang(59, 50, 0, 37),
+      ...new CorkscrewRollerCoaster().BuildBoomerang(59, 45, 0, 37),
+      ...new CorkscrewRollerCoaster().BuildBoomerang(59, 40, 0, 37),
+      ...new CorkscrewRollerCoaster().BuildBoomerang(67, 33, 1, 37)
     ]);
   }
 }

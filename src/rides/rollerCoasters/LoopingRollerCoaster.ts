@@ -24,10 +24,7 @@ export default class LoopingRollerCoaster extends Ride {
             placer.SetRideId(result.ride);
           }
         }),
-      placer.BuildPiece(TrackElemType.BeginStation),
-      placer.BuildPiece(TrackElemType.MiddleStation),
-      placer.BuildPiece(TrackElemType.MiddleStation),
-      placer.BuildPiece(TrackElemType.EndStation),
+      ...placer.BuildStation(4),
       placer.BuildPiece(TrackElemType.FlatToUp25),
       placer.BuildPiece(TrackElemType.RightVerticalLoop),
       placer.BuildPiece(TrackElemType.Down25ToFlat),
