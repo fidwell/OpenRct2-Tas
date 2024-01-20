@@ -9,6 +9,7 @@ A [tool-assisted speedrun](https://en.wikipedia.org/wiki/Tool-assisted_speedrun)
 | Scenario | Record |
 | -------- | ----- |
 | Hydro Hills | 16,384 ticks |
+| Mineral Park | 18,023 ticks |
 | Dark Age - Robin Hood | 16,384 ticks |
 | Roaring Twenties - Schneider Cup | 1,058 ticks |
 | Rock 'n' Roll - Rock 'n' Roll | 2,643 ticks |

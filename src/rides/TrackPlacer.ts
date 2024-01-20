@@ -7,6 +7,7 @@ export class TrackPlacer {
   private startX: number;
   private startY: number;
   private startDir: number;
+  private stationLocation: TileCoord;
 
   constructor(
     private rideType: number,
@@ -18,47 +19,70 @@ export class TrackPlacer {
     this.startX = x;
     this.startY = y;
     this.startDir = direction;
+    this.stationLocation = new TileCoord(this.startX, this.startY);
   }
 
   SetRideId(rideId: number) {
     this.rideId = rideId;
   }
 
-  BuildPiece(trackElemType: TrackElemType): ((data: void) => void) {
+  BuildPiece(trackElemType: TrackElemType, hasChain = false): ((data: void) => void) {
     return () => {
-      RideBuild.PlaceTrack(this.rideId, new TileCoord(this.x, this.y),
-        this.z * 8, this.direction, trackElemType, this.rideType);
-
       // ----
       // Calculate where the iterator will be next
       // ----
 
       let forward: number = 0;
       let right: number = 0;
+      let up: number = 0;
       let turn: number = 0; // 1 = 90 degrees right, etc.
+      let isUninverting: boolean = false;
+
       switch (trackElemType) {
         case TrackElemType.Flat: // 0
-        case TrackElemType.EndStation:
+          forward += 1;
+          break;
+
+        case TrackElemType.EndStation: // 1
         case TrackElemType.BeginStation:
         case TrackElemType.MiddleStation:
-        case TrackElemType.Down25ToFlat:
+          this.stationLocation = new TileCoord(this.x, this.y);
           forward += 1;
           break;
 
         case TrackElemType.Up60: // 5
           forward += 1;
-          this.z += 8;
+          up += 8;
           break;
 
         case TrackElemType.FlatToUp25: // 6
-        case TrackElemType.Up25ToFlat:
           forward += 1;
-          this.z += 1;
+          up += 1;
           break;
 
         case TrackElemType.Up25ToUp60: // 7
           forward += 1;
-          this.z += 4;
+          up += 4;
+          break;
+
+        case TrackElemType.Up25ToFlat: // 9
+          forward += 1;
+          up += 1;
+          break;
+
+        case TrackElemType.Down60: // 11
+          forward += 1;
+          up -= 8;
+          break;
+
+        case TrackElemType.Down60ToDown25: // 14
+          forward += 1;
+          up -= 4;
+          break;
+
+        case TrackElemType.Down25ToFlat: // 15
+          forward += 1;
+          up -= 1;
           break;
 
         case TrackElemType.LeftQuarterTurn5Tiles: // 16
@@ -67,22 +91,59 @@ export class TrackPlacer {
           turn -= 1;
           break;
 
+        case TrackElemType.LeftVerticalLoop: // 40
+          forward += 2;
+          right -= 1;
+          break;
+
         case TrackElemType.RightVerticalLoop: // 41
           forward += 2;
           right += 1;
-          this.z -= 1;
           break;
 
-        case TrackElemType.LeftQuarterTurn3Tiles: //42
+        case TrackElemType.LeftQuarterTurn3Tiles: // 42
           forward += 1;
           right -= 1;
           turn -= 1;
+          break;
+
+        case TrackElemType.HalfLoopUp: // 56
+          up += 19;
+          turn += 2;
+          break;
+
+        case TrackElemType.HalfLoopDown: // 57
+          forward -= 2;
+          up -= 19;
+          turn += 2;
+          isUninverting = true;
+          break;
+
+        case TrackElemType.RightCorkscrewUp: // 59
+          forward += 1;
+          right += 2;
+          up += 10;
+          turn += 1;
+          break;
+
+        case TrackElemType.RightCorkscrewDown: // 61
+          forward += 1;
+          right += 2;
+          up -= 10;
+          turn += 1;
+          isUninverting = true;
           break;
 
         default:
           console.log(`Unsupported track element type: ${trackElemType}`);
           break;
       }
+
+      const pieceBaseHeight = this.z + (isUninverting ? 0 : Math.min(0, up));
+      RideBuild.PlaceTrack(this.rideId, new TileCoord(this.x, this.y),
+        pieceBaseHeight * 8, this.direction, trackElemType, this.rideType, hasChain);
+
+      this.z += up;
 
       /* DIRECTION:
        * 0 = Headed towards x = 0
@@ -118,12 +179,14 @@ export class TrackPlacer {
   BuildExit = (): ((data: void) => void) => this.BuildEntranceExit(true);
 
   private BuildEntranceExit(isExit: boolean): ((data: void) => void) {
-    const x = (this.startDir % 2 === 0 ? this.startX : (this.startX + (isExit ? 1 : -1)));
-    const y = (this.startDir % 2 === 1 ? this.startY : (this.startY + (isExit ? 1 : -1)));
-    const location = new TileCoord(x, y);
-    const direction = (this.startDir + (isExit ? 1 : 3)) % 4;
-    return isExit
-      ? () => RideBuild.PlaceExit(this.rideId, location, direction)
-      : () => RideBuild.PlaceEntrance(this.rideId, location, direction);
+    return () => {
+      const x = (this.startDir % 2 === 0 ? this.stationLocation.x : (this.stationLocation.x + (isExit ? 1 : -1)));
+      const y = (this.startDir % 2 === 1 ? this.stationLocation.y : (this.stationLocation.y + (isExit ? 1 : -1)));
+      const location = new TileCoord(x, y);
+      const direction = (this.startDir + (isExit ? 1 : 3)) % 4;
+      return isExit
+        ? RideBuild.PlaceExit(this.rideId, location, direction)
+        : RideBuild.PlaceEntrance(this.rideId, location, direction);
+    };
   }
 }

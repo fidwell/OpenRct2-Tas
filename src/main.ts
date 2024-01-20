@@ -1,5 +1,6 @@
 import ScenarioRunner from "./scenarios/ScenarioRunner";
 import HydroHills from "./scenarios/rct1-corkscrew-follies/HydroHills";
+import MineralPark from "./scenarios/rct1-corkscrew-follies/MineralPark";
 import DarkAgeRobinHood from "./scenarios/rct2-time-twister/DarkAgeRobinHood";
 import RoaringTwentiesSchneiderCup from "./scenarios/rct2-time-twister/RoaringTwentiesSchneiderCup";
 import RockNRollRevival from "./scenarios/rct2-time-twister/RockNRollRevival";
@@ -19,6 +20,9 @@ const main = (): void => {
     switch (scenario.filename.toLocaleLowerCase()) {
       case "sc50.sc4":
         runner = new HydroHills();
+        break;
+      case "sc66.sc4":
+        runner = new MineralPark();
         break;
       case "dark age - robin hood.sc6":
         runner = new DarkAgeRobinHood();

@@ -1,5 +1,6 @@
 import { RideType } from "../enums/RideType";
 import { TrackElemType } from "../enums/TrackElemType";
+import { TrackPlaceFlags } from "../enums/TrackPlaceFlags";
 import TileCoord from "../map/TileCoord";
 
 export default class RideBuild {
@@ -19,7 +20,8 @@ export default class RideBuild {
     baseHeight: number,
     direction: number,
     trackType: TrackElemType,
-    rideType: RideType) {
+    rideType: RideType,
+    hasChain: boolean = false) {
       context.executeAction("trackplace", <TrackPlaceArgs>{
         x: location.WorldX,
         y: location.WorldY,
@@ -31,7 +33,7 @@ export default class RideBuild {
         brakeSpeed: 0,
         colour: 0,
         seatRotation: 0,
-        trackPlaceFlags: 0,
+        trackPlaceFlags: hasChain ? TrackPlaceFlags.LiftHill : 0,
         isFromTrackDesign: false
       });
   }
