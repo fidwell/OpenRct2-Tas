@@ -172,7 +172,7 @@ export class TrackPlacer {
           break;
       }
 
-      this.direction = (this.direction + turn) % 4;
+      this.direction = (this.direction + 4 + turn) % 4;
     };
   }
 

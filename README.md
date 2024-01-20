@@ -14,6 +14,7 @@ A [tool-assisted speedrun](https://en.wikipedia.org/wiki/Tool-assisted_speedrun)
 | Prehistoric - After the Asteroid | 2,115 ticks |
 | Mythological - Animatronic Film Set | 2,643 ticks |
 | Roaring Twenties - Schneider Cup | 529 ticks |
+| Future - Future World | 529 ticks |
 | Mythological - Cradle of Civilization | 2,643 ticks |
 | Rock 'n' Roll - Rock 'n' Roll | 2,643 ticks |
 
