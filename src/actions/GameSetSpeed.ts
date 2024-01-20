@@ -1,5 +1,7 @@
-export default class GameSetSpeed {
-  public static Turbo() {
-    context.executeAction("gamesetspeed", <GameSetSpeedArgs>{ speed: 8 });
+import { GameSpeed } from "../enums/GameSpeed";
+
+export default class GameModify {
+  public static SetSpeed(speed: GameSpeed) {
+    context.executeAction("gamesetspeed", <GameSetSpeedArgs>{ speed });
   }
 }

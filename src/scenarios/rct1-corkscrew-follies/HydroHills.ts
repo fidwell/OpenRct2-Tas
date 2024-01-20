@@ -1,5 +1,6 @@
-import GameSetSpeed from "../../actions/GameSetSpeed";
+import GameModify from "../../actions/GameSetSpeed";
 import ParkModify from "../../actions/ParkModify";
+import { GameSpeed } from "../../enums/GameSpeed";
 import { ResearchFunding } from "../../enums/ResarchFunding";
 import { ResearchPriorities } from "../../enums/ResearchPriorities";
 import TileCoord from "../../map/TileCoord";
@@ -17,7 +18,7 @@ export default class HydroHills extends ScenarioRunner {
       () => ParkModify.SetResearch(ResearchFunding.Maximum, ResearchPriorities.Thrill),
       () => {
         this.launchedFreefallIndex = RideUtilities.GetRideObjectIndex(LaunchedFreefall.Identifiers);
-        GameSetSpeed.Turbo();
+        GameModify.SetSpeed(GameSpeed.Hyper);
       },
       () => {
         this.IsWaiting = true;

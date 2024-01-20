@@ -1,6 +1,7 @@
-import GameSetSpeed from "../../actions/GameSetSpeed";
+import GameModify from "../../actions/GameSetSpeed";
 import ParkModify from "../../actions/ParkModify";
 import RideModify from "../../actions/RideModify";
+import { GameSpeed } from "../../enums/GameSpeed";
 import TileCoord from "../../map/TileCoord";
 import RotoDrop from "../../rides/thrillRides/Rotodrop";
 import ArrayUtilities from "../../utilities/ArrayUtilities";
@@ -11,7 +12,7 @@ export default class RockNRollRevival extends ScenarioRunner {
     const rotoDropHeight: number = 35;
     super([
       // Go fast
-      () => GameSetSpeed.Turbo(),
+      () => GameModify.SetSpeed(GameSpeed.Hyper),
       // Delete all rides
       ...ArrayUtilities.range(0, 14).map(i => () => RideModify.Demolish(i)),
       () => ParkModify.SetLoan(0),

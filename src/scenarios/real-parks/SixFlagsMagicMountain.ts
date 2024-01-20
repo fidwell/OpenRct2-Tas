@@ -4,10 +4,11 @@ The game recalculates park value before it checks
 to see whether you've completed the objective.
 */
 
-import ScenarioRunner from "../ScenarioRunner";
-import GameSetSpeed from "../../actions/GameSetSpeed";
+import GameModify from "../../actions/GameSetSpeed";
 import ParkModify from "../../actions/ParkModify";
 import RideModify from "../../actions/RideModify";
+import { GameSpeed } from "../../enums/GameSpeed";
+import ScenarioRunner from "../ScenarioRunner";
 
 export default class SixFlagsMm extends ScenarioRunner {
   constructor() {
@@ -17,7 +18,7 @@ export default class SixFlagsMm extends ScenarioRunner {
       // Sell Flashback
       () => RideModify.Demolish(26),
       () => ParkModify.SetLoan(0),
-      () => GameSetSpeed.Turbo()
+      () => GameModify.SetSpeed(GameSpeed.Hyper),
     ]);
   }
 }
