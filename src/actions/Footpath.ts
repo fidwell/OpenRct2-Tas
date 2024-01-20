@@ -1,7 +1,7 @@
 import TileCoord from "../map/TileCoord";
 
 export default class Footpath {
-  public static Clear(location: TileCoord): ((_: void) => void)[] {
+  public static Remove(location: TileCoord): ((_: void) => void)[] {
     const tile = map.getTile(location.x, location.y);
     
     const surfaceElement = <SurfaceElement>tile.elements.filter(e => e.type === "surface")[0];

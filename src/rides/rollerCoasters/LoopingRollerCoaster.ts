@@ -9,7 +9,12 @@ import { TrackPlacer } from "../TrackPlacer";
 
 export default class LoopingRollerCoaster extends Ride {
   constructor() {
-    super(["rct2tt.ride.polchase"]);
+    super([
+      "rct1.ride.steel_rc_trains",
+      "rct1.ride.steel_rc_trains_reversed",
+      "rct2.ride.scht1",
+      "rct2tt.ride.polchase"
+    ]);
   }
 
   BuildShuttleLoop(x: number, y: number, z: number, direction: number): ((data: void) => void)[] {

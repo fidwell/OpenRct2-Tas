@@ -11,7 +11,7 @@ export default class RioCarnival extends ScenarioRunner {
     const clearFootpath: ((_: void) => void)[] = [];
     for (let x = 55; x <= 97; x += 1) {
       for (let y = 50; y <= 97; y += 1) {
-        clearFootpath.push(...Footpath.Clear(new TileCoord(x, y)));
+        clearFootpath.push(...Footpath.Remove(new TileCoord(x, y)));
       }
     }
 

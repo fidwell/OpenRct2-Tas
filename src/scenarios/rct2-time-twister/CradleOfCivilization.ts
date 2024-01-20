@@ -1,5 +1,5 @@
 import GameModify from "../../actions/GameSetSpeed";
-import SceneryClear from "../../actions/SceneryClear";
+import Scenery from "../../actions/Scenery";
 import { GameSpeed } from "../../enums/GameSpeed";
 import TileCoord from "../../map/TileCoord";
 import CorkscrewRollerCoaster from "../../rides/rollerCoasters/CorkscrewRollerCoaster";
@@ -10,7 +10,7 @@ export default class CradleOfCivilization extends ScenarioRunner {
     const clearScenery: ((_: void) => void)[] = [];
     for (let x = 38; x <= 49; x += 1) {
       for (let y = 37; y <= 49; y += 1) {
-        clearScenery.push(...SceneryClear.AtTile(new TileCoord(x, y)));
+        clearScenery.push(...Scenery.RemoveSmall(new TileCoord(x, y)));
       }
     }
 
