@@ -27,6 +27,11 @@ export default class CorkscrewRollerCoaster extends Ride {
     let rideId: number = -1;
     const placer = new TrackPlacer(RideType.CorkscrewRollerCoaster, x, y, baseHeight, direction);
 
+    // RCT1 trains can get away with a 3-tile station.
+    // RCT2 trains need 4 tiles.
+    const trainType = objectManager.getObject("ride", this.VehicleId);
+    const stationLength: number = trainType.identifier.indexOf("rct1") == 0 ? 3 : 4;
+
     return [
       () => RideBuild.Create(RideType.CorkscrewRollerCoaster, this.VehicleId,
         (result: RideCreateActionResult) => {
@@ -40,7 +45,7 @@ export default class CorkscrewRollerCoaster extends Ride {
       placer.BuildPiece(TrackElemType.Down60, true),
       placer.BuildPiece(TrackElemType.Down60ToDown25, true),
       placer.BuildPiece(TrackElemType.Down25ToFlat, true),
-      ...placer.BuildStation(3),
+      ...placer.BuildStation(stationLength),
       placer.BuildPiece(TrackElemType.FlatToUp25),
       placer.BuildPiece(TrackElemType.HalfLoopUp),
       placer.BuildPiece(TrackElemType.RightCorkscrewDown),
