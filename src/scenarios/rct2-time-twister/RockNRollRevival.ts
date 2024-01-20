@@ -10,7 +10,7 @@ import ScenarioRunner from "../ScenarioRunner";
 export default class RockNRollRevival extends ScenarioRunner {
   constructor() {
     const rotoDropHeight: number = 35;
-    super([
+    super(new TileCoord(79, 54), [
       // Go fast
       () => GameModify.SetSpeed(GameSpeed.Hyper),
       // Delete all rides

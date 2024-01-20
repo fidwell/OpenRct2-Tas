@@ -8,11 +8,12 @@ import GameModify from "../../actions/GameSetSpeed";
 import ParkModify from "../../actions/ParkModify";
 import RideModify from "../../actions/RideModify";
 import { GameSpeed } from "../../enums/GameSpeed";
+import TileCoord from "../../map/TileCoord";
 import ScenarioRunner from "../ScenarioRunner";
 
 export default class SixFlagsMm extends ScenarioRunner {
   constructor() {
-    super([
+    super(new TileCoord(162, 109), [
       // Sell Goliath
       () => RideModify.Demolish(2),
       // Sell Flashback

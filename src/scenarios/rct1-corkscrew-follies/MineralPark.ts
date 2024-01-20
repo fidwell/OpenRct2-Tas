@@ -3,6 +3,7 @@ import ParkModify from "../../actions/ParkModify";
 import { GameSpeed } from "../../enums/GameSpeed";
 import { ResearchFunding } from "../../enums/ResarchFunding";
 import { ResearchPriorities } from "../../enums/ResearchPriorities";
+import TileCoord from "../../map/TileCoord";
 import CorkscrewRollerCoaster from "../../rides/rollerCoasters/CorkscrewRollerCoaster";
 import RideUtilities from "../../utilities/RideUtilities";
 import ScenarioRunner from "../ScenarioRunner";
@@ -11,7 +12,7 @@ export default class MineralPark extends ScenarioRunner {
   corkscrewIndex: number = 0;
 
   constructor() {
-    super([
+    super(new TileCoord(63, 47), [
       () => ParkModify.SetLoan(200000),
       () => ParkModify.SetResearch(ResearchFunding.Maximum, ResearchPriorities.Rollercoaster),
       () => {

@@ -1,5 +1,9 @@
+import TileCoord from "../map/TileCoord";
+
 export default class ScenarioRunner {
-  constructor(public Actions: ((data: void) => void)[]) { }
+  constructor(
+    public CameraLocation: TileCoord,
+    public Actions: ((data: void) => void)[]) { }
   IsWaiting: boolean = false;
   CurrentAction: number = 0;
 

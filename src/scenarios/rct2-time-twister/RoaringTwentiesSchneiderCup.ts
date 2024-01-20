@@ -1,6 +1,7 @@
 import GameModify from "../../actions/GameSetSpeed";
 import ParkModify from "../../actions/ParkModify";
 import { GameSpeed } from "../../enums/GameSpeed";
+import TileCoord from "../../map/TileCoord";
 import AirPoweredVerticalCoaster from "../../rides/rollerCoasters/AirPoweredVerticalCoaster";
 import LoopingRollerCoaster from "../../rides/rollerCoasters/LoopingRollerCoaster";
 import ScenarioRunner from "../ScenarioRunner";
@@ -30,6 +31,6 @@ export default class RoaringTwentiesSchneiderCup extends ScenarioRunner {
         ...new AirPoweredVerticalCoaster().BuildTinyLoop(17, 71, 60, 3)
       ];
 
-    super(actions);
+    super(new TileCoord(22, 84), actions);
   }
 }

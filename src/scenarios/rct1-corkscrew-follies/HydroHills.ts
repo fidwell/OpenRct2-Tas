@@ -13,7 +13,7 @@ export default class HydroHills extends ScenarioRunner {
 
   constructor() {
     const freefallHeight: number = 16;
-    super([
+    super(new TileCoord(85, 60), [
       () => ParkModify.SetLoan(200000),
       () => ParkModify.SetResearch(ResearchFunding.Maximum, ResearchPriorities.Thrill),
       () => {

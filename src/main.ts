@@ -21,6 +21,8 @@ const main = (): void => {
     startDate = new Date();
     startTicks = date.ticksElapsed;
     ui.closeAllWindows();
+    ui.mainViewport.zoom = 1;
+    ui.mainViewport.moveTo(<CoordsXY>{ x: runner.CameraLocation.WorldX, y: runner.CameraLocation.WorldY });
   });
 
   context.subscribe("interval.tick", () => {

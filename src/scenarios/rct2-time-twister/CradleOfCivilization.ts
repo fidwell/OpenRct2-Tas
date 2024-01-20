@@ -23,6 +23,6 @@ export default class CradleOfCivilization extends ScenarioRunner {
       ...new CorkscrewRollerCoaster().BuildBoomerang(35, 72, 3, 63),
       ...new CorkscrewRollerCoaster().BuildBoomerang(40, 74, 3, 63)
     ];
-    super(actions);
+    super(new TileCoord(42, 61), actions);
   }
 }
