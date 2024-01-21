@@ -1,8 +1,8 @@
+import IScenarioRunner from "./scenarios/IScenarioRunner";
 import RunnerFactory from "./scenarios/RunnerFactory";
-import ScenarioRunner from "./scenarios/ScenarioRunner";
 
 const main = (): void => {
-  let runner: ScenarioRunner | null;
+  let runner: IScenarioRunner | null;
   let scenarioCompleted: boolean;
   let startDate: Date;
   let startTicks: number;

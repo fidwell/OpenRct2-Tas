@@ -11,12 +11,9 @@ export default class RockNRollRevival extends ScenarioRunner {
   constructor() {
     const rotoDropHeight: number = 35;
     super(new TileCoord(79, 54), [
-      // Go fast
       () => GameModify.SetSpeed(GameSpeed.Hyper),
-      // Delete all rides
       ...ArrayUtilities.range(0, 14).map(i => () => RideModify.Demolish(i)),
       () => ParkModify.SetLoan(0),
-      // Build 9 really tall roto-drops in test mode
       ...new RotoDrop().Build(new TileCoord(61, 41), rotoDropHeight),
       ...new RotoDrop().Build(new TileCoord(64, 37), rotoDropHeight),
       ...new RotoDrop().Build(new TileCoord(69, 38), rotoDropHeight),

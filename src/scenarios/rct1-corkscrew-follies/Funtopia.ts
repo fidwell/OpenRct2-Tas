@@ -31,28 +31,19 @@ export default class Funtopia extends ScenarioRunner {
       ...new CorkscrewRollerCoaster().BuildTinyCork(61, 74, 0, 12),
       ...ActionUtilities.Repeat(() => Staff.HireMechanic(), 15),
       ...ActionUtilities.Repeat(() => Staff.HireHandyman(), 10),
-      ...ActionUtilities.Repeat(() => Staff.HireEntertainer(EntertainerCostume.Panda), 10),
-      () => {
-        this.IsWaiting = true;
-        if (date.monthsElapsed === 1) {
-          this.IsWaiting = false;
-        }
-      },
-      () => ParkModify.SetMarketing(MarketingType.Ride, 6, 0), // Grapevine
-      () => {
-        this.IsWaiting = true;
-        if (date.monthsElapsed === 3) {
-          this.IsWaiting = false;
-        }
-      },
-      () => ParkModify.SetMarketing(MarketingType.Park, 12),
-      () => {
-        this.IsWaiting = true;
-        if (date.monthsElapsed === 6) {
-          this.IsWaiting = false;
-        }
-      },
-      () => ParkModify.SetMarketing(MarketingType.Park, 12)
+      ...ActionUtilities.Repeat(() => Staff.HireEntertainer(EntertainerCostume.Panda), 10)
     ]);
+  }
+
+  public override OnTick(): void {
+    if ((date.month - 1) % 3 === 0 && date.monthProgress === 0) {
+      this.Actions.enqueue(() => ParkModify.SetMarketing(MarketingType.Ride, 12, 0)); // Grapevine
+    }
+
+    if (date.month % 3 === 0 && date.monthProgress === 0) {
+      this.Actions.enqueue(() => ParkModify.SetMarketing(MarketingType.Park, 12));
+    }
+
+    super.OnTick();
   }
 }

@@ -1,4 +1,4 @@
-import ScenarioRunner from "./ScenarioRunner";
+import IScenarioRunner from "./IScenarioRunner";
 import Funtopia from "./rct1-corkscrew-follies/Funtopia";
 import HydroHills from "./rct1-corkscrew-follies/HydroHills";
 import MineralPark from "./rct1-corkscrew-follies/MineralPark";
@@ -14,7 +14,7 @@ import RioCarnival from "./rct2-wacky-worlds/RioCarnival";
 import SixFlagsMm from "./real-parks/SixFlagsMagicMountain";
 
 export default class RunnerFactory {
-  private static Runners: { [key: string]: ((_: void) => ScenarioRunner) } = {
+  private static Runners: { [key: string]: ((_: void) => IScenarioRunner) } = {
     // Corkscrew Follies
     "SC44.SC4": () => new Funtopia(),
     "SC50.SC4": () => new HydroHills(),
@@ -33,7 +33,7 @@ export default class RunnerFactory {
     "Six Flags Magic Mountain.SC6": () => new SixFlagsMm()
   };
 
-  public static GetByFileName(fileName: string): ScenarioRunner | null {
+  public static GetByFileName(fileName: string): IScenarioRunner | null {
     const runnerConstructor = RunnerFactory.Runners[fileName];
     return runnerConstructor !== undefined && runnerConstructor !== null
       ? runnerConstructor()

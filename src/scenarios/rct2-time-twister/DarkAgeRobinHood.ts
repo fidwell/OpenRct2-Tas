@@ -8,7 +8,7 @@ export default class DarkAgeRobinHood extends ScenarioRunner {
   constructor() {
     super(new TileCoord(109, 90), [
       () => RideModify.Price(3, 100),
-      () => GameModify.SetSpeed(GameSpeed.Hyper),
+      () => GameModify.SetSpeed(GameSpeed.Hyper)
     ]);
   }
 }

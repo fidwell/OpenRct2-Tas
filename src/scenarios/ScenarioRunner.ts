@@ -1,20 +1,20 @@
 import TileCoord from "../map/TileCoord";
+import { ActionQueue } from "../utilities/ActionQueue";
+import IScenarioRunner from "./IScenarioRunner";
 
-export default class ScenarioRunner {
+export default class ScenarioRunner implements IScenarioRunner {
+  public Actions: ActionQueue;
+  
   constructor(
     public CameraLocation: TileCoord,
-    public Actions: ((data: void) => void)[]) { }
-  IsWaiting: boolean = false;
-  CurrentAction: number = 0;
+    actions: ((data: void) => void)[]
+  ) {
+    this.Actions = new ActionQueue(actions);
+   }
 
   public OnTick(): void {
-    if (this.CurrentAction >= this.Actions.length)
-      return;
-
-    this.Actions[this.CurrentAction]();
-    
-    if (!this.IsWaiting) {
-      this.CurrentAction += 1;
+    if (!this.Actions.isEmpty) {
+      this.Actions.dequeue()();
     }
   }
 }
