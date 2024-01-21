@@ -2,6 +2,7 @@ import RideBuild from "../actions/RideBuild";
 import { RideType } from "../enums/RideType";
 import { TrackElemType } from "../enums/TrackElemType";
 import TileCoord from "../map/TileCoord";
+import DirectionUtilities from "../utilities/DirectionUtilities";
 
 export class TrackPlacer {
   private rideId: number;
@@ -136,6 +137,13 @@ export class TrackPlacer {
           isUninverting = true;
           break;
 
+        case TrackElemType.LeftCorkscrewUp:
+          forward += 1;
+          right -= 2;
+          up += 10;
+          turn -= 1;
+          break;
+
         case TrackElemType.RightCorkscrewUp: // 59
           forward += 1;
           right += 2;
@@ -221,9 +229,9 @@ export class TrackPlacer {
 
   private BuildEntranceExit(isExit: boolean): ((data: void) => void) {
     return () => {
-      const x = (this.startDir % 2 === 0 ? this.stationLocation.x : (this.stationLocation.x + (isExit ? 1 : -1)));
-      const y = (this.startDir % 2 === 1 ? this.stationLocation.y : (this.stationLocation.y + (isExit ? 1 : -1)));
-      const location = new TileCoord(x, y);
+      const location = isExit
+        ? DirectionUtilities.Travel(this.stationLocation, (this.startDir + 3) % 4, 1)
+        : DirectionUtilities.Travel(this.stationLocation, (this.startDir + 1) % 4, 1);
       const direction = (this.startDir + (isExit ? 1 : 3)) % 4;
       return isExit
         ? RideBuild.PlaceExit(this.rideId, location, direction)

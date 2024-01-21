@@ -9,6 +9,7 @@ A [tool-assisted speedrun](https://en.wikipedia.org/wiki/Tool-assisted_speedrun)
 | Scenario | Record |
 | -------- | ----- |
 | **Corkscrew Follies** |
+| Funtopia | 67,651 ticks |
 | Hydro Hills | 16,384 ticks |
 | Mineral Park | 18,023 ticks |
 | **Wacky Worlds** |

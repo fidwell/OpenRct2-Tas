@@ -1,9 +1,12 @@
+import Footpath from "../../actions/Footpath";
 import RideBuild from "../../actions/RideBuild";
 import RideModify from "../../actions/RideModify";
 import { RideMode } from "../../enums/RideMode";
 import { RideStatus } from "../../enums/RideStatus";
 import { RideType } from "../../enums/RideType";
 import { TrackElemType } from "../../enums/TrackElemType";
+import TileCoord from "../../map/TileCoord";
+import DirectionUtilities from "../../utilities/DirectionUtilities";
 import Ride from "../Ride";
 import { TrackPlacer } from "../TrackPlacer";
 
@@ -65,6 +68,37 @@ export default class CorkscrewRollerCoaster extends Ride {
       placer.BuildExit(),
       () => RideModify.Mode(rideId, RideMode.ReverseInclineLaunchedShuttle),
       () => RideModify.Status(rideId, RideStatus.Testing)
+    ];
+  }
+
+  BuildTinyCork(x: number, y: number, direction: number, baseHeight: number): ((data: void) => void)[] {
+    let rideId: number = -1;
+    const placer = new TrackPlacer(RideType.CorkscrewRollerCoaster, x, y, baseHeight, direction);
+
+    const startTile = new TileCoord(x, y);
+    const entranceTile = DirectionUtilities.Travel(DirectionUtilities.Travel(startTile, direction, 2), (direction + 3) % 4, 1);
+    const exitTile = DirectionUtilities.Travel(DirectionUtilities.Travel(startTile, direction, 1), (direction + 3) % 4, 1);
+    const finalPathTile = DirectionUtilities.Travel(startTile, (direction + 3) % 4, 2);
+
+    return [
+      () => RideBuild.Create(RideType.CorkscrewRollerCoaster, this.VehicleId,
+        (result: RideCreateActionResult) => {
+          if (result.ride !== undefined) {
+            rideId = result.ride;
+            placer.SetRideId(result.ride);
+          }
+        }),
+      ...placer.BuildStation(3),
+      placer.BuildPiece(TrackElemType.LeftCorkscrewUp),
+      () => RideBuild.PlaceEntrance(rideId, entranceTile, (direction + 1) % 4),
+      () => RideBuild.PlaceExit(rideId, exitTile, (direction + 1) % 4),
+      () => RideModify.CarsPerTrain(rideId, 2),
+      () => RideModify.Mode(rideId, RideMode.PoweredLaunchWithoutPassingStation),
+      () => RideModify.LaunchSpeed(rideId, 10),
+      () => Footpath.PlaceQueue(DirectionUtilities.Travel(entranceTile, (direction + 3) % 4, 1), baseHeight),
+      () => Footpath.PlacePath(DirectionUtilities.Travel(exitTile, (direction + 3) % 4, 1), baseHeight),
+      () => Footpath.PlacePath(finalPathTile, baseHeight),
+      () => RideModify.Status(rideId, RideStatus.Open),
     ];
   }
 }

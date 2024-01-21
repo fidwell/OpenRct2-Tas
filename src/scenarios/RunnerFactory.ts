@@ -1,4 +1,5 @@
 import ScenarioRunner from "./ScenarioRunner";
+import Funtopia from "./rct1-corkscrew-follies/Funtopia";
 import HydroHills from "./rct1-corkscrew-follies/HydroHills";
 import MineralPark from "./rct1-corkscrew-follies/MineralPark";
 import AfterTheAsteroid from "./rct2-time-twister/AfterTheAsteroid";
@@ -15,6 +16,7 @@ import SixFlagsMm from "./real-parks/SixFlagsMagicMountain";
 export default class RunnerFactory {
   private static Runners: { [key: string]: ((_: void) => ScenarioRunner) } = {
     // Corkscrew Follies
+    "SC44.SC4": () => new Funtopia(),
     "SC50.SC4": () => new HydroHills(),
     "SC66.SC4": () => new MineralPark(),
     // Wacky Worlds

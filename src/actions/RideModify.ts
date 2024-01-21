@@ -4,6 +4,15 @@ import { RideSetVehicleType } from "../enums/RideSetVehicleType";
 import { RideStatus } from "../enums/RideStatus";
 
 export default class RideModify {
+  public static CarsPerTrain(rideId: number, carsPerTrain: number) {
+    context.executeAction("ridesetvehicle", <RideSetVehicleArgs>{
+      ride: rideId,
+      type: RideSetVehicleType.NumberOfCarsPerTrain,
+      value: carsPerTrain,
+      colour: 0
+    });
+  }
+
   public static Circuits(rideId: number, circuits: number) {
     context.executeAction("ridesetsetting", <RideSetSettingArgs>{
       ride: rideId,
