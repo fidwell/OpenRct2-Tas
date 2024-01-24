@@ -1,4 +1,5 @@
 import IScenarioRunner from "./IScenarioRunner";
+import FruitFarm from "./rct1-corkscrew-follies/FruitFarm";
 import Funtopia from "./rct1-corkscrew-follies/Funtopia";
 import HydroHills from "./rct1-corkscrew-follies/HydroHills";
 import MineralPark from "./rct1-corkscrew-follies/MineralPark";
@@ -18,6 +19,7 @@ export default class RunnerFactory {
     // Corkscrew Follies
     "SC44.SC4": () => new Funtopia(),
     "SC50.SC4": () => new HydroHills(),
+    "SC53.SC4": () => new FruitFarm(),
     "SC66.SC4": () => new MineralPark(),
     // Wacky Worlds
     "South America - Rio Carnival.SC6": () => new RioCarnival(),
@@ -30,6 +32,7 @@ export default class RunnerFactory {
     "Future - Future World.SC6": () => new FutureWorld(),
     "Mythological - Cradle of Civilization.SC6": () => new CradleOfCivilization(),
     "Rock 'n' Roll - Rock 'n' Roll.SC6": () => new RockNRollRevival(),
+    // Real parks
     "Six Flags Magic Mountain.SC6": () => new SixFlagsMm()
   };
 

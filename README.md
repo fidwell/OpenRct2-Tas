@@ -11,6 +11,7 @@ A [tool-assisted speedrun](https://en.wikipedia.org/wiki/Tool-assisted_speedrun)
 | **Corkscrew Follies** |
 | Funtopia | 61,714 ticks |
 | Hydro Hills | 16,384 ticks |
+| Fruit Farm | 63,352 ticks |
 | Mineral Park | 18,023 ticks |
 | **Wacky Worlds** |
 | South America - Rio Carnival | 3,700 ticks | 

@@ -75,7 +75,7 @@ export default class Scenery {
 
     const actions: ((_: void) => void)[] = [];
 
-    (tile.elements.filter(e => e.type === "wall") as SmallSceneryElement[]).forEach(element => {
+    (tile.elements.filter(e => e.type === "wall") as WallElement[]).forEach(element => {
       const args = <WallRemoveArgs>{
         x: tile.x * 32,
         y: tile.y * 32,
