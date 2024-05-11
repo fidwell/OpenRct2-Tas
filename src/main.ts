@@ -1,12 +1,13 @@
 import IScenarioRunner from "./scenarios/IScenarioRunner";
 import RunnerFactory from "./scenarios/RunnerFactory";
 
-const main = (): void => {
-  let runner: IScenarioRunner | null;
-  let scenarioCompleted: boolean;
-  let startDate: Date;
-  let startTicks: number;
+let tickSubscription: IDisposable;
+let runner: IScenarioRunner | null;
+let scenarioCompleted: boolean;
+let startDate: Date;
+let startTicks: number;
 
+const main = (): void => {
   context.subscribe("map.changed", () => {
     if (context.mode !== "normal")
       return;
@@ -23,14 +24,21 @@ const main = (): void => {
     ui.closeAllWindows();
     ui.mainViewport.zoom = 1;
     ui.mainViewport.moveTo(<CoordsXY>{ x: runner.CameraLocation.WorldX, y: runner.CameraLocation.WorldY });
+    startTas();
   });
+};
 
-  context.subscribe("interval.tick", () => {
-    if (context.mode !== "normal")
+const startTas = (): void => {
+  tickSubscription = context.subscribe("interval.tick", () => {
+    if (context.mode !== "normal") {
+      tickSubscription.dispose();
       return;
+    }
 
-    if (runner === undefined || runner === null)
+    if (runner === undefined || runner === null) {
+      tickSubscription.dispose();
       return;
+    }
 
     if (!scenarioCompleted && scenario.status === "completed") {
       const finish = new Date();
@@ -42,6 +50,7 @@ const main = (): void => {
       });
       scenarioCompleted = true;
       runner = null;
+      tickSubscription.dispose();
       return;
     }
 
